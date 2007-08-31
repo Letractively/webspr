@@ -53,7 +53,8 @@ fillers as real sentences, there will never be two real sentences in a row.)
 Finally, practice sentences are prepended to the list of sentences in the order
 in which they were originally given.
 
-Owing to differences in browsers, screen sizes, etc., it is impossible to predict whether or not a given sentence will fit onto a single line. For
+Owing to differences in browsers, screen sizes, etc., it is impossible to
+predict whether or not a given sentence will fit onto a single line. For
 this reason, the software detects when a line boundry is crossed and flags
 this in the results, allowing timings influences by line breaks to be excluded
 in analysis.
