@@ -2,14 +2,14 @@ You will need to install the "paste" module for Python before using this
 software.
 
 There are two components: the server, server.py, and the webpage, spr.html.
-The server uses the "toy" HTTP servery provided by paste; you probably don't
+The server uses the "toy" HTTP server provided by paste; you probably don't
 want to use it directly, but should rather hide it behind a proxy. The server
 is limited to serving the files "spr.html" and "data.js" (or any other file
 matching "*data.js") and is thus rather inflexible in its current form. This
 is another reason to run it behind a proxy.
 
 In theory, using the software is a simple as running the server and pointing
-your test subjects to http://your.server/spr.html.
+your subjects to http://your.server/spr.html.
 
 Input data should be in a file called data.js in the same directory as spr.html.
 The server saves results in a file called "results". The following is an
@@ -42,7 +42,7 @@ sentences, 0 for practice sentences and negative integers for filler sentences.
 Sentences may optionally have an associated comprehension question. The example
 above indicates the syntax used. Answers should be given with the correct
 answer first. When the experiment is run, answers are presented in a random
-order, with the exception of "Yes"/"No" questions, where "Yes" is always
+order, with the exception of yes/no questions, where yes is always
 first.
 
 The software uses the following procedure to determine the order of sentences
@@ -64,8 +64,8 @@ file. **Each row corresponds to a single instance of a spacebar pressing.**
 In order, the columns are as follows:
 
 1. Date
-    The date/time at which the server received the results. This is an integer
-    representing seconds since XXXX.
+    The date/time at which the server received the results of which this line
+    is a part. This is an integer representing seconds since XXXX.
 2. Sentence
     The number of the sentence (as determined by the order of sentences in
     data.js). Note that sentence hashes can also be used to identify sentences.
@@ -79,7 +79,7 @@ In order, the columns are as follows:
     Integer giving the reading time in ms.
 6. Newline
     Indicates whether or not the user went onto a new line to read this word
-    (i.e., whether the word is the first word of a new line). 1 for yes, 0 for
+    (i.e., whether the word is the last word on a line). 1 for yes, 0 for
     no.
 7. Answer
     Indicates whether or not the comprehension question was answered correctly.
@@ -87,7 +87,7 @@ In order, the columns are as follows:
 8. Length,
     The length of the word in characters.
 9. IP Hash
-    MD5 hash of the subject's IP address.
+    MD5 hash of the subject's IP address as a hexadecimal string.
 10. Sentence hash.
     MD5 hash of the sentence (with one space between each word -- multiple
     spaces, newlines, etc. are trimmed before hashing).
