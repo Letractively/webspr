@@ -15,7 +15,8 @@ In theory, using the software is a simple as running the server and pointing
 your subjects to http://your.server/spr.html.
 
 Input data should be in a file called data.js in the same directory as spr.html.
-The server saves results in a file called "results". The following is an
+The server saves results in a file called "results", and saves the raw post
+data it receives in a file called "raw_results". The following is an
 example data.js:
 
 ---------- BEGIN EXAMPLE data.js ----------
