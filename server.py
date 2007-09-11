@@ -30,6 +30,7 @@ import types
 
 PORT = 3000
 RESULT_FILE_NAME = "results"
+RAW_RESULT_FILE_NAME = "raw_results"
 
 class HighLevelParseError(Exception):
     def __init__(self, *args):
@@ -114,6 +115,17 @@ def control(env, start_response):
             return ["<html><body><h1>500 Internal Server Error</h1></body></html>"]
 
         post_data = env['wsgi.input'].read(content_length)
+
+        # Keep a backup of the raw post data.
+        bf = None
+        try:
+            bf = open(RAW_RESULT_FILE_NAME, "a")
+            bf.write(post_data)
+        except:
+            pass
+        finally:
+            if bf: bf.close()
+
 	rf = None
         try:
             parsed_json = json.read(post_data)
