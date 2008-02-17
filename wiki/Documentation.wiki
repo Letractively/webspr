@@ -275,22 +275,22 @@ all practice sentences in their original order followed by evenly
 spaced real and filler sentences in random order. Assuming the types
 "practice", "real" and "filler", we could use the following shuffle
 sequence:
-
+{{{
     seq("practice", shuffle(randomize("real"), randomize("filler")))
-
+}}}
 Now suppose that there are two types of real sentence ("real1" and
 "real2"), and we wish to order the sentences the same way as before:
-
+{{{
     seq("practice", shuffle(randomize(["real1", "real2"]),
                     randomize("filler")))
-
+}}}
 What if we also want the two types of real sentence to be evenly
 spaced?  The following formula will do the trick:
-
+{{{
     seq("practice", shuffle(randomize("filler"),
                             shuffle(randomize("real1"),
                                     randomize("real2"))))
-
+}}}
 This first shuffles sentences of type "real1" and sentences of type
 "real2" and then shuffles filler sentences into the mix.  Finally,
 practice sentences are prepended in the order they were given in
@@ -299,14 +299,14 @@ data.js.
 Since it is often useful to apply `randomize` to every argument of
 `shuffle`, there is a utility function, `rshuffle`, which automates
 this. The following equivalence holds:
-
+{{{
     rshuffle(a1, a2, ...) = shuffle(randomize(a1), randomize(a2), ...)
-
+}}}
 If no shuffle sequence is specified, Webspr uses the following default
 sequence:
-
+{{{
     seq(equalTo0, rshuffle(greaterThan0, lessThan0))
-
+}}}
 This will seem rather cryptic to anyone not familiar with the behavior
 of earlier versions of Webspr, where this ordering specification was
 built in and unchangeable. In short, it works well if practice
