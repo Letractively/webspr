@@ -36,7 +36,7 @@ directory and serves up the result. Your data file(s) will live in
 `js_includes`.
 
 The server can be configured by editing server_conf.py. Each of the
-options is commented. Change the `SERVER_MODE` variable to determne
+options is commented. Change the `SERVER_MODE` variable to determine
 whether the server runs in stand-alone mode or as a CGI process. When
 `SERVER_MODE` is set to "cgi", server.py will work as a standard CGI
 program; when it is set to "paste", the server will run in stand-alone
@@ -88,7 +88,7 @@ other items and entities would also be present under most
 circumstances. For example, there would probably be a "separator"
 entity between each sentence/question pair in order to provide a pause
 between sentences. Schematically, the sequence of items would be as
-follows (the wiki insists on displaying this in pretty colors):
+follows (the Wiki insists on displaying this in pretty colors):
 {{{
     ITEM 1:
         ENTITY 1: Sentence
@@ -114,12 +114,12 @@ that follows a standard interface. This makes it quite easy to add
 new entities if you are familiar with !JavaScript/DHTML programming.
 
 Each entity is an instance of a _controller_, which determines
-the kind of epxerimental task that the entity will present.
+the kind of experimental task that the entity will present.
 For example, there is a `DashedSentence` controller useful for
 self-paced reading a speeded acceptability judgment tasks.
 Webspr has a modular design, where each controller is a !JavaScript object
 that follows a standard interface. This makes it quite easy to add
-new contollers if you are familiar with !JavaScript/DHTML programming.
+new controllers if you are familiar with !JavaScript/DHTML programming.
 
 Webspr stores results in CSV format. This makes it easy to import
 results into spreadsheets, Matlab, R, etc. Each entity may contribute
