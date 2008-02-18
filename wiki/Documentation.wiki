@@ -227,9 +227,32 @@ var defaults = [
 }}}
 This definition can go either before or after the definition of the
 `items` array.  Once it is in place, we can drop the specification of
-the `as` option for each Question element.
+the `as` option for each Question element. The final data file looks
+like this:
+{{{
+var shuffleSequence = seq(anyType);
+
+var defaults = [
+    Question, {as: ["Yes", "No"]},
+    DashedSentence, {mode: "speeded acceptability"}
+];
+
+var items = [
+
+["filler", DashedSentence, {s: "Here's a silly filler sentence"},
+           Question, {q: "Is this a filler sentence?"}],
+["filler", DashedSentence, {s: "And another silly filler sentence"},
+           Question, {q: "Does this sentence have a relative clause?"}],
+["relclause", DashedSentence, {s: "A sentence that has a relative clause"},
+              Question, {q: "Was there movement through [Spec,CP]?"}],
+["relclause", DashedSentence, {s: "Another sentence that has a relative clause"},
+              Question, {q: "Was the first word of that sentence 'frog'?"}]
+
+];
+}}}
 
 =Shuffle sequences=
+==`seq`, `randomize` and `shuffle`==
 A "shuffle sequence" is a !JavaScript data structure describing a
 series of "shuffling", randomizing and sequencing operations over an
 array of items.  A variable called `shuffleSequence` should be defined
@@ -319,11 +342,49 @@ predicate expression such as `not("foo")`. Thus, one must use
 `seq("foo")`, not just `"foo"`, and `seq(not("foo"))`, not just
 `not("foo")`.
 
-Note that it is possible to include duplicate items in the final
-sequence. For example, `seq("foo", "foo")` would include every item
-of type "foo" twice. For this reason, it is possible to accidentally
-include duplicate items if a number of your predicates overlap.
+It is possible to include duplicate items in the final sequence. For
+example, `seq("foo", "foo")` would include every item of type "foo"
+twice. For this reason, it is possible to accidentally include
+duplicate items if a number of your predicates overlap.  You can
+define your own shuffle sequence operators and predicates quite
+easily; see `shuffle.js` for the definitions of the `seq`, 'shuffle'
+and 'randomize' operators.
 
-You can define your own shuffle sequence operators and predicates
-quite easily; see `shuffle.js` for the definitions of the `seq`,
-'shuffle' and 'randomize' operators.
+==Manipulating individual items==
+So far, we've been treating items as atoms for the purposes of shuffle
+sequences. Although an item might be composed of several elements,
+`seq`, `randomize` and `shuffle` ignore this internal
+structure. However, it is sometimes useful to be able to append or
+prepend a particular sequence of elements to every item.  For example,
+if you are doing a speeded acceptability judgment task, you might want
+every sentence to be followed by exactly the same question ("Was this
+a good sentence?"). To this end, webspr provides the `precedeEachWith`
+and `followEachWith` operations.
+
+Both functions take two arguments, each of which should be either a
+shuffle sequence.  The first argument specifies the sequence of items
+which (when flattened to a sequence of elements) is to be
+appended/prepended to every item in the second argument.  Returning to
+the previous example of a data file, let's modify it so that every
+sentence is followed by the same acceptability question.  We'll also
+ensure that the sentences are randomly ordered, with the fillers and
+"real" sentences evenly spaced:
+{{{
+var shuffleSequence = followEachWith("question", rshuffle("filler", "relclause"));
+
+var defaults = [
+    DashedSentence, {mode: "speeded acceptability"}
+];
+
+var items = [
+
+["question", Question, {q: "Was that a good sentence?", as: ["Yes", "No"]}],
+
+["filler", DashedSentence, {s: "Here's a silly filler sentence"}],
+["filler", DashedSentence, {s: "And another silly filler sentence"}],
+
+["relclause", DashedSentence, {s: "A sentence that has a relative clause"}],
+["relclause", DashedSentence, {s: "Another sentence that has a relative clause"}]
+
+];
+}}}
