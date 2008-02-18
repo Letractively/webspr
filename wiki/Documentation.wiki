@@ -44,7 +44,7 @@ mode. You can change the value of `PORT` to determine the port the
 server will listen on when operating in stand-alone mode. The `-m`
 and `-p` command-line options can also be used to set the server mode
 and port respectively. These options override those set in
-server_conf.py.
+`server_conf.py`.
 
 In theory, using the software is as simple as running the server by
 either of the methods described above, constructing a suitable data
@@ -62,9 +62,9 @@ The server logs messages in the file `server.log` in the same directory
 as `server.py`. The default is to store all files in the same directory
 as `server.py` (i.e. logs, results, etc.), but the working directory of
 the server can be modified by setting the variable
-`WEBSPR_WORKING_DIR` in server_conf.py. You can also set the
+`WEBSPR_WORKING_DIR` in `server_conf.py`. You can also set the
 environment variable of the same name. (The value of the environment
-variable overrides the value of the variable in server_conf.py.)
+variable overrides the value of the variable in `server_conf.py`.)
 
 On Linux/Unix/OS X, the server uses file locking to ensure that the
 results file and server state remain consistent. Currently, it does
@@ -193,8 +193,8 @@ the following definition (which won't make much sense yet):
 {{{
 var shuffleSequence = seq(anyType);
 }}}
-You are free to define "shuffleSequence" either before or after the
-"items" array.
+You are free to define `shuffleSequence` either before or after the
+`items` array.
 
 Suppose we wanted to pair each sentence with a comprehension question.
 The easiest way to do this is to add a second element to each item:
@@ -214,10 +214,10 @@ var items = [
 }}}
 As shown above, this is done simply by adding to each item further
 pairs of controllers and associative arrays of options. It is rather
-tiresome to have to set the "as" option to ["Yes", "No"] every time,
+tiresome to have to set the `as` option to ["Yes", "No"] every time,
 but this can easily be avoided by specifying this as the default for
 the Question controller. To give an example of how defaults for multiple
-controllers are specified, let's also set the "mode" option of DashedSentence
+controllers are specified, let's also set the `mode` option of DashedSentence
 to "speeded acceptability":
 {{{
 var defaults = [
@@ -226,7 +226,7 @@ var defaults = [
 ];
 }}}
 This definition can go either before or after the definition of the
-"items" array.  Once it is in place, we can drop the specification of
+`items` array.  Once it is in place, we can drop the specification of
 the "as" option for each Question element.
 
 =Shuffle sequences=
@@ -247,27 +247,27 @@ a set of sentence types. A type predicate may be one of the following:
 
 The basic operations work as follows:
 
-    * A statement of the form seq(pred1, pred2, pred3, ...) specifies a sequence where all sentences matching pred1 precede all sentences matching pred2, all sentences matching pred2 precede all sentences matching pred3, and so on. The original relative ordering between sentences of the same type is preserved. A `seq` with only one argument is permissible.
+    * A statement of the form `seq(pred1, pred2, pred3, ...)` specifies a sequence where all sentences matching `pred1` precede all sentences matching `pred2`, all sentences matching `pred2` precede all sentences matching `pred3`, and so on. The original relative ordering between sentences of the same type is preserved. A `seq` with only one argument is permissible.
 
-    * A statement of the form randomize(pred1) specifies a randomly ordered sequence of all sentences matching pred1.
+    * A statement of the form `randomize(pred1)` specifies a randomly ordered sequence of all sentences matching pred1.
 
-    * A statement of the form shuffle(pred1, pred2, pred3, ...) specifies that sentences matching the given predicates should be shuffled together in such a way that sentences matching each predicate are evenly spaced. The original relative ordering between sentences of the same type is preserved.
+    * A statement of the form `shuffle(pred1, pred2, pred3, ...)` specifies that sentences matching the given predicates should be shuffled together in such a way that sentences matching each predicate are evenly spaced. The original relative ordering between sentences of the same type is preserved.
 
 The following type predicates are predefined as JavaScript functions:
 
-    || *Function*         || *Description*                                           ||
-    || anyType            || Matches any type.                                       ||
-    || lessThan0          || Matches any integer type < 0.                           ||
-    || greaterThan0       || Matches any integer type > 0.                           ||
-    || equalTo0           || Matches any integer type = 0.                          ||
-    || startsWith(s)      || Matches any string type starting with s.                ||
-    || endsWith(s)        || Matches any string type ending with s.                  ||
-    || not(pred)          || Matches anything that is not of a type matched by pred. ||
-    || anyOf(p1, p2, ...) || Matches anything matching one of its arguments.         ||
+    || *Function*           || *Description*                                           ||
+    || `anyType`            || Matches any type.                                       ||
+    || `lessThan0`          || Matches any integer type < 0.                           ||
+    || `greaterThan0`       || Matches any integer type > 0.                           ||
+    || `equalTo0`           || Matches any integer type = 0.                          ||
+    || `startsWith(s)`      || Matches any string type starting with s.                ||
+    || `endsWith(s)`        || Matches any string type ending with s.                  ||
+    || `not(pred)`          || Matches anything that is not of a type matched by pred. ||
+    || `anyOf(p1, p2, ...)` || Matches anything matching one of its arguments.         ||
 
 If you define your own predicates, be careful to test that they are
 cross-browser compatible. See section 7 for some pertinent advice.
-The predicates above are defined in shuffle.js.
+The predicates above are defined in `shuffle.js`.
 
 The power of shuffle sequences derives from the possibility of
 composing them without limit. Suppose we want the following order:
@@ -294,7 +294,7 @@ spaced?  The following formula will do the trick:
 This first shuffles sentences of type "real1" and sentences of type
 "real2" and then shuffles filler sentences into the mix.  Finally,
 practice sentences are prepended in the order they were given in
-data.js.
+`data.js`.
 
 Since it is often useful to apply `randomize` to every argument of
 `shuffle`, there is a utility function, `rshuffle`, which automates
@@ -315,15 +315,16 @@ real sentences have integer types > 0.
 
 *Important*: A shuffle sequence must always have one of `seq`,
 `shuffle`, `randomize` or `rshuffle` as its outer element. A single
-string or integer is _not_ a valid shuffle sequence, and neither is
-not("foo"). Thus, one must use seq("foo"), not just "foo", and
-seq(not("foo")), not just not("foo").
+string or integer is _not_ a valid shuffle sequence, and neither is a
+predicate expression such as `not("foo")`. Thus, one must use
+`seq("foo")`, not just `"foo"`, and `seq(not("foo"))`, not just
+`not("foo")`.
 
 Note that it is possible to include duplicate sentences in the final
-sequence. For example, seq("foo", "foo") would include every sentence
+sequence. For example, `seq("foo", "foo")` would include every sentence
 of type "foo" twice. For this reason, it is possible to accidentally
 include duplicate sentences if a number of your predicates overlap.
 
 You can define your own shuffle sequence operators and predicates
-quite easily; see shuffle.js for the definitions of the `seq`,
+quite easily; see `shuffle.js` for the definitions of the `seq`,
 'shuffle' and 'randomize' operators.
