@@ -115,7 +115,7 @@ new entities if you are familiar with !JavaScript/DHTML programming.
 
 Each entity is an instance of a _controller_, which determines
 the kind of epxerimental task that the entity will present.
-For example, there is a "!DashedSentence" controller useful for
+For example, there is a `DashedSentence` controller useful for
 self-paced reading a speeded acceptability judgment tasks.
 Webspr has a modular design, where each controller is a !JavaScript object
 that follows a standard interface. This makes it quite easy to add
@@ -182,7 +182,7 @@ The second member specifies the controller.
 The third member is an associative array of key/value pairs. This
 array is passed to the controller and is used to customize its
 behavior. In this case, we pass only one option ("s"), which tells the
-!DashedSentence controller which sentence it should display.
+`DashedSentence` controller which sentence it should display.
 
 Once the items array has been created, Webspr must be told the order
 in which the items should be displayed. There are some moderately
@@ -217,7 +217,7 @@ pairs of controllers and associative arrays of options. It is rather
 tiresome to have to set the `as` option to ["Yes", "No"] every time,
 but this can easily be avoided by specifying this as the default for
 the Question controller. To give an example of how defaults for multiple
-controllers are specified, let's also set the `mode` option of !DashedSentence
+controllers are specified, let's also set the `mode` option of `DashedSentence`
 to "speeded acceptability":
 {{{
 var defaults = [
