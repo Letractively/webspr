@@ -8,7 +8,7 @@ http://code.google.com/p/webspr/wiki/Documentation
 Webspr allows you to run various kinds of psycholinguistic experiment
 online. (Originally only self-paced reading was supported, hence the
 name.)  The system is modular, and the range of possible experiments
-is steadily growing. Webspr uses JavaScript and HTML only, and
+is steadily growing. Webspr uses !JavaScript and HTML only, and
 doesn't require the use of plugins such as Java or Flash.
 
 =Setting up the server=
@@ -28,7 +28,7 @@ so it is unlikely to be useful for real work (unless you hide it
 behind a proxy). However, it is useful for testing experimental
 designs without setting up a real HTTP server.
 
-The directories `js_includes` and `css_includes` contain JavaScript
+The directories `js_includes` and `css_includes` contain !JavaScript
 and CSS files required for particular kinds of experiment. When an
 HTTP request is made for the virtual files `js_includes.js` and
 `css_includes.css`, the server concatenates all the files in the
@@ -109,17 +109,17 @@ entities manually. Webspr provides tools for ordering items in various
 ways (e.g. for inserting a pause between each item) and for
 implementing latin square designs. More on these soon.
 
-Webspr has a modular design, where each entity is a JavaScript object
+Webspr has a modular design, where each entity is a !JavaScript object
 that follows a standard interface. This makes it quite easy to add
-new entities if you are familiar with JavaScript/DHTML programming.
+new entities if you are familiar with !JavaScript/DHTML programming.
 
 Each entity is an instance of a _controller_, which determines
 the kind of epxerimental task that the entity will present.
-For example, there is a "DashedSentence" controller useful for
+For example, there is a "!DashedSentence" controller useful for
 self-paced reading a speeded acceptability judgment tasks.
-Webspr has a modular design, where each controller is a JavaScript object
+Webspr has a modular design, where each controller is a !JavaScript object
 that follows a standard interface. This makes it quite easy to add
-new contollers if you are familiar with JavaScript/DHTML programming.
+new contollers if you are familiar with !JavaScript/DHTML programming.
 
 Webspr stores results in CSV format. This makes it easy to import
 results into spreadsheets, Matlab, R, etc. Each entity may contribute
@@ -129,14 +129,14 @@ of the subject's IP address), and the rest give information specific
 to the particular element (e.g. word reading times, comprehension
 question answers). The first seven columns are as follows:
 
-|| *Column* || *Information*                                                 ||
-|| 1        || Time results were received (seconds since Jan 1 1970)         ||
-|| 2        || MD5 hash of subject's IP address                              ||
-|| 3        || Name of the controller for the entity (e.g. "DashedSentence") ||
-|| 4        || Item number                                                   ||
-|| 5        || Element number                                                ||
-|| 6        || Type                                                          ||
-|| 7        || Group                                                         ||
+|| *Column* || *Information*                                                  ||
+|| 1        || Time results were received (seconds since Jan 1 1970)          ||
+|| 2        || MD5 hash of subject's IP address                               ||
+|| 3        || Name of the controller for the entity (e.g. "!DashedSentence") ||
+|| 4        || Item number                                                    ||
+|| 5        || Element number                                                 ||
+|| 6        || Type                                                           ||
+|| 7        || Group                                                          ||
 
 Note that some information pertaining to an entire experiment
 (e.g. the time that the server received the results, the MD5 hash of
@@ -153,8 +153,8 @@ the format of the subsequent columns. All of the controllers that are
 bundled with the Webspr distribution are fully documented here.
 
 =Format of a data file=
-Data files for Webspr are JavaScript source files, but it is not
-really necessary to know JavaScript in order to write one.  The most
+Data files for Webspr are !JavaScript source files, but it is not
+really necessary to know !JavaScript in order to write one.  The most
 important part of a data file is the declaration of the "items" array,
 as in the following example:
 {{{
@@ -182,7 +182,7 @@ The second member specifies the controller.
 The third member is an associative array of key/value pairs. This
 array is passed to the controller and is used to customize its
 behavior. In this case, we pass only one option ("s"), which tells the
-DashedSentence controller which sentence it should display.
+!DashedSentence controller which sentence it should display.
 
 Once the items array has been created, Webspr must be told the order
 in which the items should be displayed. There are some moderately
@@ -217,7 +217,7 @@ pairs of controllers and associative arrays of options. It is rather
 tiresome to have to set the `as` option to ["Yes", "No"] every time,
 but this can easily be avoided by specifying this as the default for
 the Question controller. To give an example of how defaults for multiple
-controllers are specified, let's also set the `mode` option of DashedSentence
+controllers are specified, let's also set the `mode` option of !DashedSentence
 to "speeded acceptability":
 {{{
 var defaults = [
@@ -230,7 +230,7 @@ This definition can go either before or after the definition of the
 the "as" option for each Question element.
 
 =Shuffle sequences=
-A "shuffle sequence" is a JavaScript data structure describing a
+A "shuffle sequence" is a !JavaScript data structure describing a
 series of "shuffling", randomizing and sequencing operations over an
 array of items.  A variable called `shuffleSequence` should be defined
 in your data file with a data structure of this sort as its value.
@@ -242,7 +242,7 @@ a set of types. A type predicate may be one of the following:
 
     * A string or integer, denoting the characteristic function of all items of the given type.
 
-    * A JavaScript function, returning a boolean value when given a type (either a string or integer).
+    * A !JavaScript function, returning a boolean value when given a type (either a string or integer).
 
 The basic operations work as follows:
 
@@ -252,7 +252,7 @@ The basic operations work as follows:
 
     * A statement of the form `shuffle(pred1, pred2, pred3, ...)` specifies that items matching the given predicates should be shuffled together in such a way that items matching each predicate are evenly spaced. The original relative ordering between items of the same type is preserved.
 
-The following type predicates are predefined as JavaScript functions:
+The following type predicates are predefined as !JavaScript functions:
 
 || *Function*           || *Description*                                           ||
 || `anyType`            || Matches any type.                                       ||
