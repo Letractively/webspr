@@ -254,15 +254,15 @@ The basic operations work as follows:
 
 The following type predicates are predefined as JavaScript functions:
 
-    || *Function*           || *Description*                                           ||
-    || `anyType`            || Matches any type.                                       ||
-    || `lessThan0`          || Matches any integer type < 0.                           ||
-    || `greaterThan0`       || Matches any integer type > 0.                           ||
-    || `equalTo0`           || Matches any integer type = 0.                           ||
-    || `startsWith(s)`      || Matches any string type starting with s.                ||
-    || `endsWith(s)`        || Matches any string type ending with s.                  ||
-    || `not(pred)`          || Matches anything that is not of a type matched by pred. ||
-    || `anyOf(p1, p2, ...)` || Matches anything matching one of its arguments.         ||
+|| *Function*           || *Description*                                           ||
+|| `anyType`            || Matches any type.                                       ||
+|| `lessThan0`          || Matches any integer type < 0.                           ||
+|| `greaterThan0`       || Matches any integer type > 0.                           ||
+|| `equalTo0`           || Matches any integer type = 0.                           ||
+|| `startsWith(s)`      || Matches any string type starting with s.                ||
+|| `endsWith(s)`        || Matches any string type ending with s.                  ||
+|| `not(pred)`          || Matches anything that is not of a type matched by pred. ||
+|| `anyOf(p1, p2, ...)` || Matches anything matching one of its arguments.         ||
 
 If you define your own predicates, be careful to test that they are
 cross-browser compatible. See section 7 for some pertinent advice.
