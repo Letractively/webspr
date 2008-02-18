@@ -2,7 +2,7 @@
 This documentation is for Webspr 0.2 (currently in alpha).  Earlier
 versions of Webspr come with a README containing full documentation.
 The latest version of this document is at
-http://code.google.com/p/webspr/w/Documentation
+http://code.google.com/p/webspr/wiki/Documentation
 
 =Introduction=
 Webspr allows you to run various kinds of psycholinguistic experiment
