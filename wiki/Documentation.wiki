@@ -129,14 +129,14 @@ of the subject's IP address), and the rest give information specific
 to the particular element (e.g. word reading times, comprehension
 question answers). The first seven columns are as follows:
 
-|| *Column* || *Information*                                         ||
-|| 1        || Time results were received (seconds since Jan 1 1970) ||
-|| 2        || MD5 hash of subject's IP address                      ||
+|| *Column* || *Information*                                                 ||
+|| 1        || Time results were received (seconds since Jan 1 1970)         ||
+|| 2        || MD5 hash of subject's IP address                              ||
 || 3        || Name of the controller for the entity (e.g. "DashedSentence") ||
-|| 4        || Item number                                           ||
-|| 5        || Element number                                        ||
-|| 6        || Type                                                  ||
-|| 7        || Group                                                 ||
+|| 4        || Item number                                                   ||
+|| 5        || Element number                                                ||
+|| 6        || Type                                                          ||
+|| 7        || Group                                                         ||
 
 Note that some information pertaining to an entire experiment
 (e.g. the time that the server received the results, the MD5 hash of
@@ -232,26 +232,25 @@ the "as" option for each Question element.
 =Shuffle sequences=
 A "shuffle sequence" is a JavaScript data structure describing a
 series of "shuffling", randomizing and sequencing operations over an
-array of sentences.  A variable called `shuffleSequence` should be
-defined in your data file with a data structure of this sort as its
-value.
+array of items.  A variable called `shuffleSequence` should be defined
+in your data file with a data structure of this sort as its value.
 
 Shuffle sequences are composed of three basic operations, `seq`,
 `randomize` and `shuffle`. Both take a series of "type predicates" as
 arguments, where each type predicate is the characteristic function of
-a set of sentence types. A type predicate may be one of the following:
+a set of types. A type predicate may be one of the following:
 
-    * A string or integer, denoting the characteristic function of all sentences of the given type.
+    * A string or integer, denoting the characteristic function of all items of the given type.
 
     * A JavaScript function, returning a boolean value when given a type (either a string or integer).
 
 The basic operations work as follows:
 
-    * A statement of the form `seq(pred1, pred2, pred3, ...)` specifies a sequence where all sentences matching `pred1` precede all sentences matching `pred2`, all sentences matching `pred2` precede all sentences matching `pred3`, and so on. The original relative ordering between sentences of the same type is preserved. A `seq` with only one argument is permissible.
+    * A statement of the form `seq(pred1, pred2, pred3, ...)` specifies a sequence where all items matching `pred1` precede all items matching `pred2`, all items matching `pred2` precede all items matching `pred3`, and so on. The original relative ordering between items of the same type is preserved. A `seq` with only one argument is permissible.
 
-    * A statement of the form `randomize(pred1)` specifies a randomly ordered sequence of all sentences matching pred1.
+    * A statement of the form `randomize(pred1)` specifies a randomly ordered sequence of all items matching pred1.
 
-    * A statement of the form `shuffle(pred1, pred2, pred3, ...)` specifies that sentences matching the given predicates should be shuffled together in such a way that sentences matching each predicate are evenly spaced. The original relative ordering between sentences of the same type is preserved.
+    * A statement of the form `shuffle(pred1, pred2, pred3, ...)` specifies that items matching the given predicates should be shuffled together in such a way that items matching each predicate are evenly spaced. The original relative ordering between items of the same type is preserved.
 
 The following type predicates are predefined as JavaScript functions:
 
@@ -271,29 +270,29 @@ The predicates above are defined in `shuffle.js`.
 
 The power of shuffle sequences derives from the possibility of
 composing them without limit. Suppose we want the following order:
-all practice sentences in their original order followed by evenly
-spaced real and filler sentences in random order. Assuming the types
+all practice items in their original order followed by evenly
+spaced real and filler items in random order. Assuming the types
 "practice", "real" and "filler", we could use the following shuffle
 sequence:
 {{{
     seq("practice", shuffle(randomize("real"), randomize("filler")))
 }}}
-Now suppose that there are two types of real sentence ("real1" and
-"real2"), and we wish to order the sentences the same way as before:
+Now suppose that there are two types of real item ("real1" and
+"real2"), and we wish to order the items the same way as before:
 {{{
     seq("practice", shuffle(randomize(["real1", "real2"]),
                     randomize("filler")))
 }}}
-What if we also want the two types of real sentence to be evenly
+What if we also want the two types of real item to be evenly
 spaced?  The following formula will do the trick:
 {{{
     seq("practice", shuffle(randomize("filler"),
                             shuffle(randomize("real1"),
                                     randomize("real2"))))
 }}}
-This first shuffles sentences of type "real1" and sentences of type
-"real2" and then shuffles filler sentences into the mix.  Finally,
-practice sentences are prepended in the order they were given in
+This first shuffles items of type "real1" and items of type
+"real2" and then shuffles filler items into the mix.  Finally,
+practice items are prepended in the order they were given in
 `data.js`.
 
 Since it is often useful to apply `randomize` to every argument of
@@ -310,8 +309,8 @@ sequence:
 This will seem rather cryptic to anyone not familiar with the behavior
 of earlier versions of Webspr, where this ordering specification was
 built in and unchangeable. In short, it works well if practice
-sentences have type 0, filler sentences have integer types < 0, and
-real sentences have integer types > 0.
+items have type 0, filler items have integer types < 0, and
+real items have integer types > 0.
 
 *Important*: A shuffle sequence must always have one of `seq`,
 `shuffle`, `randomize` or `rshuffle` as its outer element. A single
@@ -320,10 +319,10 @@ predicate expression such as `not("foo")`. Thus, one must use
 `seq("foo")`, not just `"foo"`, and `seq(not("foo"))`, not just
 `not("foo")`.
 
-Note that it is possible to include duplicate sentences in the final
-sequence. For example, `seq("foo", "foo")` would include every sentence
+Note that it is possible to include duplicate items in the final
+sequence. For example, `seq("foo", "foo")` would include every item
 of type "foo" twice. For this reason, it is possible to accidentally
-include duplicate sentences if a number of your predicates overlap.
+include duplicate items if a number of your predicates overlap.
 
 You can define your own shuffle sequence operators and predicates
 quite easily; see `shuffle.js` for the definitions of the `seq`,
