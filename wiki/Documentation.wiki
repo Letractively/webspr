@@ -227,7 +227,7 @@ var defaults = [
 }}}
 This definition can go either before or after the definition of the
 `items` array.  Once it is in place, we can drop the specification of
-the "as" option for each Question element.
+the `as` option for each Question element.
 
 =Shuffle sequences=
 A "shuffle sequence" is a !JavaScript data structure describing a
