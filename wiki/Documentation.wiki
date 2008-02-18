@@ -28,21 +28,21 @@ so it is unlikely to be useful for real work (unless you hide it
 behind a proxy). However, it is useful for testing experimental
 designs without setting up a real HTTP server.
 
-The directories "js_includes" and "css_includes" contain JavaScript
+The directories `js_includes` and `css_includes` contain JavaScript
 and CSS files required for particular kinds of experiment. When an
-HTTP request is made for the virtual files "js_includes.js" and
-"css_includes.css", the server concatenates all the files in the
+HTTP request is made for the virtual files `js_includes.js` and
+`css_includes.css`, the server concatenates all the files in the
 directory and serves up the result. Your data file(s) will live in
-"js_includes".
+`js_includes`.
 
 The server can be configured by editing server_conf.py. Each of the
-options is commented. Change the "SERVER_MODE" variable to determne
+options is commented. Change the `SERVER_MODE` variable to determne
 whether the server runs in stand-alone mode or as a CGI process. When
-"SERVER_MODE" is set to "cgi", server.py will work as a standard CGI
+`SERVER_MODE` is set to "cgi", server.py will work as a standard CGI
 program; when it is set to "paste", the server will run in stand-alone
-mode. You can change the value of "PORT" to determine the port the
-server will listen on when operating in stand-alone mode. The "-m"
-and "-p" command-line options can also be used to set the server mode
+mode. You can change the value of `PORT` to determine the port the
+server will listen on when operating in stand-alone mode. The `-m`
+and `-p` command-line options can also be used to set the server mode
 and port respectively. These options override those set in
 server_conf.py.
 
@@ -50,19 +50,19 @@ In theory, using the software is as simple as running the server by
 either of the methods described above, constructing a suitable data
 file, and pointing your subjects to http://your.server/spr.html.
 
-The server stores some state in the "server_state" directory. This
+The server stores some state in the `server_state` directory. This
 directory is automatically created by the server if it does not
 already exist, and in order to start the server from a fresh state you
 may simply delete this directory and/or its contents. Currently, the
 directory just contains the counter used to alternate latin square
-designs. This counter can be reset on server startup using the "-r"
+designs. This counter can be reset on server startup using the `-r`
 option.
 
-The server logs messages in the file server.log in the same directory
-as server.py. The default is to store all files in the same directory
-as server.py (i.e. logs, results, etc.), but the working directory of
+The server logs messages in the file `server.log` in the same directory
+as `server.py`. The default is to store all files in the same directory
+as `server.py` (i.e. logs, results, etc.), but the working directory of
 the server can be modified by setting the variable
-"WEBSPR_WORKING_DIR" in server_conf.py. You can also set the
+`WEBSPR_WORKING_DIR` in server_conf.py. You can also set the
 environment variable of the same name. (The value of the environment
 variable overrides the value of the variable in server_conf.py.)
 
@@ -75,7 +75,7 @@ purely theoretical).
 
 The stand-alone server has been tested on Windows and OS X (but will
 almost certainly work on any system with Python 2.5, so long as the
-&lsquo;paste&rsquo; module is installed). The CGI server has been
+`paste` module is installed). The CGI server has been
 tested on OS X using the lighttpd web server.
 
 =Basic concepts=
