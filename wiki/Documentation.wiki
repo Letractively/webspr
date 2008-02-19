@@ -4,6 +4,11 @@ versions of Webspr come with a README containing full documentation.
 The latest version of this document is at
 http://code.google.com/p/webspr/wiki/Documentation
 
+=Docs TODO=
+    * Example of how to start up paste server and connect to the experiment.
+    * Full documentation for every controller.
+    * Document reporting of wrong answers.
+
 =Introduction=
 Webspr allows you to run various kinds of psycholinguistic experiment
 online. (Originally only self-paced reading was supported, hence the
@@ -399,7 +404,7 @@ var items = [
 ==`Separator`==
 
 || *Option*        || *Default*    || *Description* ||
-|| transfer        || `"keypress"` || Must be either `"keypress"` or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of ms to wait before next item. ||
+|| transfer        || `"keypress"` || Must be either `"keypress"` or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of ms to wait before the next item. ||
 || normalMessage   || `"Press any key to continue."` || Message to display if the previous item was completed normally. ||
 || errorMessage    || `"Wrong. Press any key to continue."` || Message to display (in red) if the previous item was no completed normally (e.g. timeout, incorrect answer). ||
 
@@ -427,3 +432,15 @@ var items = [
 || randomOrder    || `true` if the question has a correct answer, false otherwise. || Whether or not to randomize the order of the answers before displaying them. ||
 || presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings, for example). ||
 || timeout        || `null`       || If `null`, there is no time limit. Otherwise, should be a number giving the time in ms a participant has to answer the question. ||
+
+==`AcceptabilityJudgment`==
+
+|| *Option*       || *Default*           || *Description*                ||
+|| s              || _obligatory_        || The sentence.                ||
+|| q              || _obligatory_        || The question.                ||
+|| as             || _obligatory_        || Answers (as for `Question`). ||
+|| hasCorrect     || `false`             || As for `Question`            ||
+|| showNumbers    || `true`              || As for `Question`            ||
+|| randomOrder    || _as for `Question`_ || As for `Question`            ||
+|| presentAsScale || `false`             || As for `Question`            ||
+|| timeout        || `null`              || As for `Question`            ||
