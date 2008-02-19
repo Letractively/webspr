@@ -352,8 +352,8 @@ and 'randomize' operators.
 
 ==Manipulating individual items==
 So far, we've been treating items as atoms for the purposes of shuffle
-sequences. Although an item might be composed of several elements,
-`seq`, `randomize` and `shuffle` ignore this internal
+sequences. Although an item might be composed of several elements, the
+operations `seq`, `randomize` and `shuffle` ignore this internal
 structure. However, it is sometimes useful to be able to append or
 prepend a particular sequence of elements to every item.  For example,
 if you are doing a speeded acceptability judgment task, you might want
@@ -388,3 +388,17 @@ var items = [
 
 ];
 }}}
+
+=Controllers=
+==`Message`==
+
+|| *Option*        || *Default*    || *Description*                                                       ||
+|| html            || _obligatory_ || The HTML for the message to display.                                ||
+|| hideProgressBar || true         || Whether the progress bar should be shown together with the message. ||
+
+==`Separator`==
+
+|| *Option*        || *Default*    || *Description* ||
+|| transfer        || "keypress"   || Must be either "keypress" or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of seconds to wait before next item. ||
+|| normalMessage   || "Press any key to continue" || Message to display if the previous item was completed normally. ||
+|| errorMessage    || "Wrong. Press any key to continue" || Message to display (in red) if the previous item was no completed normally (e.g. timeout, incorrect answer). ||
