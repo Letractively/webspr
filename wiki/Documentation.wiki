@@ -399,6 +399,31 @@ var items = [
 ==`Separator`==
 
 || *Option*        || *Default*    || *Description* ||
-|| transfer        || `"keypress"` || Must be either "keypress" or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of seconds to wait before next item. ||
-|| normalMessage   || `"Press any key to continue"` || Message to display if the previous item was completed normally. ||
-|| errorMessage    || `"Wrong. Press any key to continue"` || Message to display (in red) if the previous item was no completed normally (e.g. timeout, incorrect answer). ||
+|| transfer        || `"keypress"` || Must be either `"keypress"` or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of ms to wait before next item. ||
+|| normalMessage   || `"Press any key to continue."` || Message to display if the previous item was completed normally. ||
+|| errorMessage    || `"Wrong. Press any key to continue."` || Message to display (in red) if the previous item was no completed normally (e.g. timeout, incorrect answer). ||
+
+==`DashedSentence`==
+
+|| *Option*      || *Default*              || *Description*                                               ||
+|| s             || _obligatory_           || The sentence.                                               ||
+|| mode          || `"self-paced reading"` || Either `"self-paced reading"` or `"speeded acceptability"`. ||
+|| wordTime      || `300`                  || If mode is `"speeded acceptability"`, the time in ms each word should be displayed for. ||
+|| wordPauseTime || `100`                  || If mode is `"speeded acceptability"`, the time in ms a word should remain blank before it is shown. ||
+
+==`FlashSentence`==
+
+|| *Option* || *Default*    || *Description*                 ||
+|| s        || _obligatory_ || The sentence to be displayed. ||
+|| timeout  || 2000         || If `null`, the sentence is displayed indefinitely (only useful if part of a VBox). Otherwise, a number giving the time in ms to display the sentence. ||
+
+==`Question`
+
+|| *Option*       || *Default*    || *Description*                                                     ||
+|| q              || _obligatory_ || The question to pose.                                             ||
+|| as             || _obligatory_ || A list of strings giving the answers the user has to choose from. ||
+|| hasCorrect     || `false`      || If `false`, indicates that none of the answers is privaledged as correct. Othwerise, is either `true`, indicating that the first answer in the "as" list is the correct one; an integer, giving the index of the correct answer in the "as" list (starting from 0); or a string, giving the correct answer. ||
+|| showNumbers    || `true`       || If `true`, answers are numbered and participants can use number keys to select them. ||
+|| randomOrder    || `true` if the question has a correct answer, false otherwise. || Whether or not to randomize the order of the answers before displaying them. ||
+|| presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings, for example). ||
+|| timeout        || `null`       || If `null`, there is no time limit. Otherwise, should be a number giving the time in ms a participant has to answer the question. ||
