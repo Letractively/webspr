@@ -417,7 +417,7 @@ var items = [
 || s        || _obligatory_ || The sentence to be displayed. ||
 || timeout  || 2000         || If `null`, the sentence is displayed indefinitely (only useful if part of a VBox). Otherwise, a number giving the time in ms to display the sentence. ||
 
-==`Question`
+==`Question`==
 
 || *Option*       || *Default*    || *Description*                                                     ||
 || q              || _obligatory_ || The question to pose.                                             ||
