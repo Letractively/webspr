@@ -7,6 +7,7 @@ http://code.google.com/p/webspr/wiki/Documentation
 =Docs TODO=
     * Example of how to start up paste server and connect to the experiment.
     * Full documentation for every controller.
+    * Explanation of VBox.
     * Document reporting of wrong answers.
 
 =Introduction=
