@@ -395,6 +395,19 @@ var items = [
 ];
 }}}
 
+=Communication between elements=
+Webspr allows for a limited amount of communication between elements.
+Each element may set keys in a hashtable which is passed to the next
+element.  The hashtable is cleared between elements, so there is no
+possibility of long-distance communication (unless you just use
+!JavaScript global variables).
+
+Currently, this system is used to provide feedback to participants when
+they (for example) answer a comprehension question incorrectly.
+Controllers such as `Question` set the key "failed" if something goes wrong,
+and the next `Separator` item is then able to display a message warning
+the participant that they answered incorrectly.
+
 =Controllers=
 ==`Message`==
 
@@ -428,7 +441,7 @@ var items = [
 || *Option*       || *Default*    || *Description*                                                     ||
 || q              || _obligatory_ || The question to pose.                                             ||
 || as             || _obligatory_ || A list of strings giving the answers the user has to choose from. ||
-|| hasCorrect     || `false`      || If `false`, indicates that none of the answers is privaledged as correct. Othwerise, is either `true`, indicating that the first answer in the "as" list is the correct one; an integer, giving the index of the correct answer in the "as" list (starting from 0); or a string, giving the correct answer. ||
+|| hasCorrect     || `false`      || If `false`, indicates that none of the answers is privileged as correct. Otherwise, is either `true`, indicating that the first answer in the "as" list is the correct one; an integer, giving the index of the correct answer in the "as" list (starting from 0); or a string, giving the correct answer. ||
 || showNumbers    || `true`       || If `true`, answers are numbered and participants can use number keys to select them. ||
 || randomOrder    || `true` if the question has a correct answer, false otherwise. || Whether or not to randomize the order of the answers before displaying them. ||
 || presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings, for example). ||
@@ -456,5 +469,5 @@ see `js_includes/acceptability_judgment.js`.
 
 || *Option*  || *Default*    || *Description* ||
 || children  || _obligatory_ || An array of child controllers. Has exactly the same format as an array of elements for an item ||
-|| triggers  || _obligatory_ || In order to determine when a VBox element is complete, you must specify the indices of those of its children which are "triggers". When each of the trigger elements is complete, the VBox is complete. ||
+|| triggers  || _obligatory_ || In order to determine when a VBox element is complete, you must specify the indices of those of its children which are "triggers" (indices start from 0). When each of the trigger elements is complete, the VBox is complete. ||
 || padding   || `"2em"`      || The amount of vertical padding to place between the children. ||
