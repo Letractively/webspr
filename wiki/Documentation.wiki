@@ -8,7 +8,6 @@ http://code.google.com/p/webspr/wiki/Documentation
     * Example of how to start up paste server and connect to the experiment.
     * Full documentation for every controller.
     * Explanation of VBox.
-    * Document reporting of wrong answers.
 
 =Introduction=
 Webspr allows you to run various kinds of psycholinguistic experiment
@@ -178,17 +177,18 @@ The "items" array is an array of arrays, where each subarray specifies
 a single item. In the example above, every item contains a single
 element (multiple element items will be covered shortly).
 
-The first member of each subarray specifies the _type_ of the item.
-Types can either be numbers or strings. Although the types in the
-example above have descriptive names, Webspr does not interpret these
-names in any way.
+    * The first member of each subarray specifies the _type_ of the
+      item.  Types can either be numbers or strings. Although the
+      types in the example above have descriptive names, Webspr does
+      not interpret these names in any way.
 
-The second member specifies the controller.
+    * The second member specifies the controller.
 
-The third member is an associative array of key/value pairs. This
-array is passed to the controller and is used to customize its
-behavior. In this case, we pass only one option ("s"), which tells the
-`DashedSentence` controller which sentence it should display.
+    * The third member is an associative array of key/value
+      pairs. This array is passed to the controller and is used to
+      customize its behavior. In this case, we pass only one option
+      ("s"), which tells the `DashedSentence` controller which
+      sentence it should display.
 
 Once the items array has been created, Webspr must be told the order
 in which the items should be displayed. There are some moderately
@@ -256,6 +256,14 @@ var items = [
 
 ];
 }}}
+
+*Where to put your data file*: Data files live in the `js_includes`
+directory, and must have a `.js` extension. You can only have one file
+in the directory at any one time, since if you have multilple files,
+they will just overwrite the definitions for `shuffleSequence`,
+`items` and `defaults`.  However, you can tell the server to ignore
+some of the files in `js_includes` (see the section "Configuring
+`js_includes` and `css_includes`").
 
 =Shuffle sequences=
 ==`seq`, `randomize` and `shuffle`==
@@ -371,10 +379,10 @@ Both functions take two arguments, each of which should be either a
 shuffle sequence.  The first argument specifies the sequence of items
 which (when flattened to a sequence of elements) is to be
 appended/prepended to every item in the second argument.  Returning to
-the previous example of a data file, let's modify it so that every
-sentence is followed by the same acceptability question.  We'll also
-ensure that the sentences are randomly ordered, with the fillers and
-"real" sentences evenly spaced:
+the previous example data file, let's modify it so that every sentence
+is followed by the same acceptability question.  We'll also ensure
+that the sentences are randomly ordered, with the fillers and "real"
+sentences evenly spaced:
 {{{
 var shuffleSequence = followEachWith("question", rshuffle("filler", "relclause"));
 
@@ -448,7 +456,6 @@ the participant that they answered incorrectly.
 || timeout        || `null`       || If `null`, there is no time limit. Otherwise, should be a number giving the time in ms a participant has to answer the question. ||
 
 ==`AcceptabilityJudgment`==
-
 || *Option*       || *Default*           || *Description*                ||
 || s              || _obligatory_        || The sentence.                ||
 || q              || _obligatory_        || The question.                ||
@@ -460,7 +467,6 @@ the participant that they answered incorrectly.
 || timeout        || `null`              || As for `Question`            ||
 
 ==`VBox`==
-
 The `VBox` controller makes it possible to combine multiple
 controllers to form a single controller. This allows the functionality
 of simple controllers to be reused in the construction of more complex
