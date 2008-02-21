@@ -161,7 +161,7 @@ bundled with the Webspr distribution are fully documented here.
 results file.  For example, if the `DashedSentence` element is in
 "self-paced reading" mode, it will add one line for every word
 time. Thus, there is not a one-to-one correspondence between
-items/elements and lines.
+itemes/elements and lines.
 
 =Format of a data file=
 Data files for Webspr are !JavaScript source files, but it is not
@@ -265,7 +265,7 @@ var items = [
 
 *Where to put your data file*: Data files live in the `js_includes`
 directory, and must have a `.js` extension. You can only have one file
-in the directory at any one time, since if you have multiple files,
+in the directory at any one time, since if you have multilple files,
 they will just overwrite the definitions for `shuffleSequence`,
 `items` and `defaults`.  However, you can tell the server to ignore
 some of the files in `js_includes` (see the section "Configuring
@@ -558,7 +558,7 @@ see `js_includes/acceptability_judgment.js`.
 || padding   || `"2em"`      || The amount of vertical padding to place between the children. ||
 
 =Further configuration=
-==Miscellaneous options==
+==Miscelaneous options==
     * Turn off the progress bar by adding the declaration `var showProgressBar = false;` to your data file.
 
     * Change the tile of the page by adding a declaration such as `var pageTitle = "My Experiment";` to your data file.
@@ -593,5 +593,5 @@ You may wish to exclude !JavaScript and CSS files which are not used
 by your experiment in order to reduce the size of the file that needs
 to be downloaded. Since the files in both directories are named after
 the controllers with which they are associated, it is easy to see
-which files are superfluous. However, note that the file `main.css` is
+which files are superflous. However, note that the file `main.css` is
 required by all controllers.
