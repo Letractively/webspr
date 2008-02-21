@@ -317,7 +317,7 @@ sequence:
 Now suppose that there are two types of real item ("real1" and
 "real2"), and we wish to order the items the same way as before:
 {{{
-    seq("practice", shuffle(randomize(["real1", "real2"]),
+    seq("practice", shuffle(randomize(anyOf("real1", "real2")),
                     randomize("filler")))
 }}}
 What if we also want the two types of real item to be evenly
