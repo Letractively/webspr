@@ -157,6 +157,12 @@ consult the documentation for the relevant controllers to determine
 the format of the subsequent columns. All of the controllers that are
 bundled with the Webspr distribution are fully documented here.
 
+*Important*: A single element my contribute multiple lines to the
+results file.  For example, if the `DashedSentence` element is in
+"self-paced reading" mode, it will add one line for every word
+time. Thus, there is not a one-to-one correspondence between
+itemes/elements and lines.
+
 =Format of a data file=
 Data files for Webspr are !JavaScript source files, but it is not
 really necessary to know !JavaScript in order to write one.  The most
@@ -418,17 +424,23 @@ the participant that they answered incorrectly.
 
 =Controllers=
 ==`Message`==
-
+===Options===
 || *Option*        || *Default*    || *Description*                                                       ||
 || html            || _obligatory_ || The HTML for the message to display.                                ||
 || hideProgressBar || `true`       || If true, the progress bar is hidden when the message is displayed.  ||
 
-==`Separator`==
+===Results===
+`Message` does not add any lines to the results file.
 
+==`Separator`==
+===Options===
 || *Option*        || *Default*    || *Description* ||
 || transfer        || `"keypress"` || Must be either `"keypress"` or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of ms to wait before the next item. ||
 || normalMessage   || `"Press any key to continue."` || Message to display if the previous item was completed normally. ||
 || errorMessage    || `"Wrong. Press any key to continue."` || Message to display (in red) if the previous item was not completed normally (e.g. timeout, incorrect answer). ||
+|| ignoreFailures  || `false`      || If true, never displays an error message. ||
+===Results===
+`Options` does not add any lines to the results file.
 
 ==`DashedSentence`==
 
