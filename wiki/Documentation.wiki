@@ -460,24 +460,30 @@ the participant that they answered incorrectly.
 
 The format of the results depends on the setting of the "mode" option. If it is set to "speeded acceptability", results have the following format:
 
-|| *Column* || Description ||
+|| *Column* || *Description* ||
 || 1        || MD5 hash of sentence. ||
 
 If it is set to "self-paced reading", they look like this:
 
-|| *Column* || Description ||
-|| 1        || Word number. For example, "1" indicates that this line gives the time it took to read the first word (i.e. the difference between [the time at which the first word appeared] and [the time at which it disappeared and the second word appeared]). ||
+|| *Column* || *Description* ||
+|| 1        || Word number. For example, "1" indicates that this line gives the time it took to read the first word (i.e. the difference between (the time at which the first word appeared) and (the time at which it disappeared and the second word appeared). ||
 || 2        || The reading time in ms. ||
 || 3        || Either 1 or 0. Indicates whether or not there was a line break between word n and word n + 1 (where reading time is for word n). ||
 || 4        || MD5 hash of the sentence. ||
 
 ==!FlashSentence==
+*Options*
 
 || *Option* || *Default*    || *Description*                 ||
 || s        || _obligatory_ || The sentence to be displayed. ||
 || timeout  || 2000         || If `null`, the sentence is displayed indefinitely (only useful if part of a VBox). Otherwise, a number giving the time in ms to display the sentence.    ||
 
+*Results*
+
+`FlashSentence` does not add any lines to the results file.
+
 ==Question==
+*Options*
 
 || *Option*       || *Default*    || *Description*                                                     ||
 || q              || _obligatory_ || The question to pose.                                             ||
@@ -487,6 +493,13 @@ If it is set to "self-paced reading", they look like this:
 || randomOrder    || `true` if the question has a correct answer, false otherwise. || Whether or not to randomize the order of the answers before displaying them. ||
 || presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings, for example). ||
 || timeout        || `null`       || If `null`, there is no time limit. Otherwise, should be a number giving the time in ms a participant has to answer the question. ||
+
+*Results*
+
+|| *Column* || *Description* ||
+|| 1        || The question that was posed (encoded as a URL with %XX escapes). ||
+|| 2        || The answer that the participant gave (also encoded as a URL).    ||
+|| 3        || "NULL" if the question as no correct answer. Otherwise, 1 if the participant answered correctly, or 0 if they didn't. ||
 
 ==!AcceptabilityJudgment==
 || *Option*       || *Default*           || *Description*                ||
@@ -499,7 +512,7 @@ If it is set to "self-paced reading", they look like this:
 || presentAsScale || `false`             || As for `Question`            ||
 || timeout        || `null`              || As for `Question`            ||
 
-==!VBox==
+==VBox==
 The `VBox` controller makes it possible to combine multiple
 controllers to form a single controller. This allows the functionality
 of simple controllers to be reused in the construction of more complex
