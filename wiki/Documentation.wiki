@@ -424,25 +424,30 @@ the participant that they answered incorrectly.
 
 =Controllers=
 ==Message==
-===Options===
+*Options*
+
 || *Option*        || *Default*    || *Description*                                                       ||
 || html            || _obligatory_ || The HTML for the message to display.                                ||
 || hideProgressBar || `true`       || If true, the progress bar is hidden when the message is displayed.  ||
 
-===Results===
+*Results*
+
 `Message` does not add any lines to the results file.
 
 ==Separator==
-===Options===
+*Options*
+
 || *Option*        || *Default*    || *Description* ||
 || transfer        || `"keypress"` || Must be either `"keypress"` or a number. If the former, participant goes to the next item by pressing any key. If the latter, specifies number of ms to wait before the next item. ||
 || normalMessage   || `"Press any key to continue."` || Message to display if the previous item was completed normally. ||
 || errorMessage    || `"Wrong. Press any key to continue."` || Message to display (in red) if the previous item was not completed normally (e.g. timeout, incorrect answer). ||
 || ignoreFailures  || `false`      || If true, never displays an error message. ||
-===Results===
+
+*Results*
+
 `Options` does not add any lines to the results file.
 
-==DashedSentence==
+==!DashedSentence==
 
 || *Option*      || *Default*              || *Description*                                               ||
 || s             || _obligatory_           || The sentence.                                               ||
@@ -450,7 +455,7 @@ the participant that they answered incorrectly.
 || wordTime      || `300`                  || If mode is `"speeded acceptability"`, the time in ms each word should be displayed for. ||
 || wordPauseTime || `100`                  || If mode is `"speeded acceptability"`, the time in ms a word should remain blank before it is shown. ||
 
-==FlashSentence==
+==!FlashSentence==
 
 || *Option* || *Default*    || *Description*                 ||
 || s        || _obligatory_ || The sentence to be displayed. ||
@@ -467,7 +472,7 @@ the participant that they answered incorrectly.
 || presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings, for example). ||
 || timeout        || `null`       || If `null`, there is no time limit. Otherwise, should be a number giving the time in ms a participant has to answer the question. ||
 
-==AcceptabilityJudgment==
+==!AcceptabilityJudgment==
 || *Option*       || *Default*           || *Description*                ||
 || s              || _obligatory_        || The sentence.                ||
 || q              || _obligatory_        || The question.                ||
@@ -478,7 +483,7 @@ the participant that they answered incorrectly.
 || presentAsScale || `false`             || As for `Question`            ||
 || timeout        || `null`              || As for `Question`            ||
 
-==VBox==
+==!VBox==
 The `VBox` controller makes it possible to combine multiple
 controllers to form a single controller. This allows the functionality
 of simple controllers to be reused in the construction of more complex
