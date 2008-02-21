@@ -448,6 +448,7 @@ the participant that they answered incorrectly.
 `Options` does not add any lines to the results file.
 
 ==!DashedSentence==
+*Options*
 
 || *Option*      || *Default*              || *Description*                                               ||
 || s             || _obligatory_           || The sentence.                                               ||
@@ -455,11 +456,26 @@ the participant that they answered incorrectly.
 || wordTime      || `300`                  || If mode is `"speeded acceptability"`, the time in ms each word should be displayed for. ||
 || wordPauseTime || `100`                  || If mode is `"speeded acceptability"`, the time in ms a word should remain blank before it is shown. ||
 
+*Results*
+
+The format of the results depends on the setting of the "mode" option. If it is set to "speeded acceptability", results have the following format:
+
+|| *Column* || Description ||
+|| 1        || MD5 hash of sentence. ||
+
+If it is set to "self-paced reading", they look like this:
+
+|| *Column* || Description ||
+|| 1        || Word number. For example, "1" indicates that this line gives the time it took to read the first word (i.e. the difference between [the time at which the first word appeared] and [the time at which it disappeared and the second word appeared]). ||
+|| 2        || The reading time in ms. ||
+|| 3        || Either 1 or 0. Indicates whether or not there was a line break between word n and word n + 1 (where reading time is for word n). ||
+|| 4        || MD5 hash of the sentence. ||
+
 ==!FlashSentence==
 
 || *Option* || *Default*    || *Description*                 ||
 || s        || _obligatory_ || The sentence to be displayed. ||
-|| timeout  || 2000         || If `null`, the sentence is displayed indefinitely (only useful if part of a VBox). Otherwise, a number giving the time in ms to display the sentence. ||
+|| timeout  || 2000         || If `null`, the sentence is displayed indefinitely (only useful if part of a VBox). Otherwise, a number giving the time in ms to display the sentence.    ||
 
 ==Question==
 
