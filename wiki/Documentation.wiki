@@ -480,31 +480,17 @@ see `js_includes/acceptability_judgment.js`.
 
 =Further configuration=
 ==Miscelaneous options==
-    * Turn off the progress bar by adding the declaration `var
-      showProgressBar = false;` to your data file.
+    * Turn off the progress bar by adding the declaration `var showProgressBar = false;` to your data file.
 
-    * Change the tile of the page by adding a declaration such as
-      `var pageTitle = "My Experiment";` to your data file.
+    * Change the tile of the page by adding a declaration such as `var pageTitle = "My Experiment";` to your data file.
 
-    * Change the message shown when results were successfully sent to
-      the server by adding a declaration such as `var
-      completionMessage = "Completed.";` to your data file.
+    * Change the message shown when results were successfully sent to the server by adding a declaration such as `var completionMessage = "Completed.";` to your data file.
 
-    * Change the message shown when there was an error sending results
-      to the server by adding a declaration such as `var
-      completionErrorMessage = "Error.";` to your data file.
+    * Change the message shown when there was an error sending results to the server by adding a declaration such as `var completionErrorMessage = "Error.";` to your data file.
 
-    * Mark items as practice items by setting the value of the
-      `practiceItemTypes` variable. For example, if all your practice
-      sentences have types "practice1" and "practice2", add the
-      declaration `var practiceItemTypes = ["practice1",
-      "practice2"];` Note that even if there is only one type, you
-      must still use an array. A blue "practice" heading is placed
-      above practice items.
+    * Mark items as practice items by setting the value of the `practiceItemTypes` variable. For example, if all your practice sentences have types "practice1" and "practice2", add the declaration `var practiceItemTypes = ["practice1", "practice2"];` Note that even if there is only one type, you must still use an array. A blue "practice" heading is placed above practice items.
 
-    * Change the heading displayed above practice items by adding a
-      declaration such as `var practiceMessage = "foo";` to your data
-      file..
+    * Change the heading displayed above practice items by adding a declaration such as `var practiceMessage = "foo";` to your data file.
 
 ==Configuring `js_includes` and `css_includes`==
 The `js_includes` and `css_includes` directories contain !JavaScript
