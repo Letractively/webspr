@@ -31,7 +31,7 @@ behind a proxy). However, it is useful for testing experimental
 designs without setting up a real HTTP server, or for running
 experiments offline.
 
-The server can be configured by editing server_conf.py. Each of the
+The server can be configured by editing `server_conf.py`. Each of the
 options is commented. Change the `SERVER_MODE` variable to determine
 whether the server runs in stand-alone mode or as a CGI process. When
 `SERVER_MODE` is set to "cgi", server.py will work as a standard CGI
