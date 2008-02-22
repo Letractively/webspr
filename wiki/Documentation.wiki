@@ -178,18 +178,11 @@ The "items" array is an array of arrays, where each subarray specifies
 a single item. In the example above, every item contains a single
 element (multiple element items will be covered shortly).
 
-    * The first member of each subarray specifies the _type_ of the
-      item.  Types can either be numbers or strings. Although the
-      types in the example above have descriptive names, Webspr does
-      not interpret these names in any way.
+    * The first member of each subarray specifies the _type_ of the item.  Types can either be numbers or strings. Although the types in the example above have descriptive names, Webspr does not interpret these names in any way.
 
     * The second member specifies the controller.
 
-    * The third member is an associative array of key/value
-      pairs. This array is passed to the controller and is used to
-      customize its behavior. In this case, we pass only one option
-      ("s"), which tells the `DashedSentence` controller which
-      sentence it should display.
+    * The third member is an associative array of key/value pairs. This array is passed to the controller and is used to customize its behavior. In this case, we pass only one option ("s"), which tells the `DashedSentence` controller which sentence it should display.
 
 Once the items array has been created, Webspr must be told the order
 in which the items should be displayed. There are some moderately
