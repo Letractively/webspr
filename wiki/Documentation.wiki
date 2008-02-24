@@ -648,7 +648,7 @@ the backslash the last character of the line). Some browsers may accept
 !JavaScript string literals containing unescaped newlines, but most will not,
 so make sure you don't use them.
 
-Most browsers allow strings to be indexed using square brackets (i.e. `"foo"``[ 1 ]`
+Most browsers allow strings to be indexed using square brackets (i.e. `"foo"``[1]`
 `== "f"`). Internet Explorer, however, requires the use of the string's `charAt`
 method.
 
