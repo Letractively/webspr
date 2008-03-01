@@ -1,0 +1,5 @@
+The source is in a [http://git.or.cz/ git] repository, you can check out out using the following command:
+{{{
+...
+}}}
+Please contact me if you want commit access.
