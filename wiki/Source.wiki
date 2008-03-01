@@ -1,5 +1,7 @@
 The source is in a [http://git.or.cz/ git] repository, you can check out out using the following command:
 {{{
-...
+git clone git://spellout.net/webspr.git
 }}}
 Please contact me if you want commit access.
+
+There's some code in the googlecode SVN repository, but it's out of date.
