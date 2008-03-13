@@ -156,7 +156,7 @@ comprehension question answers). The first seven columns are as follows:
 
 || *Column* || *Information*                                                  ||
 || 1        || Time results were received (seconds since Jan 1 1970)          ||
-|| 2        || MD5 hash of parctipant's IP address                            ||
+|| 2        || MD5 hash of participant's IP address                            ||
 || 3        || Name of the controller for the entity (e.g. "!DashedSentence") ||
 || 4        || Item number                                                    ||
 || 5        || Element number                                                 ||
@@ -179,7 +179,7 @@ distribution are fully documented here.
 *Important*: A single element my contribute multiple lines to the results file.
 For example, if the `DashedSentence` element is in "self-paced reading" mode,
 it will add to the results file for every word reading time it records. Thus,
-there is not a one-to-one correspondence between itemes/elements and lines.
+there is not a one-to-one correspondence between items/elements and lines.
 
 =Format of a data file=
 Data files for Webspr are !JavaScript source files, but it is not really
@@ -625,7 +625,7 @@ a controller constructed using a VBox, see
 The `VBox` controller simply concatenates the results of its children in the order that the children were given.
 
 =Further configuration=
-==Miscelaneous options==
+==Miscalenous options==
 You can set the values of the following variables in your data file (e.g. `var showProgressBar = true;`).
 
 || *Option* || *Default* || *Description* ||
@@ -655,7 +655,7 @@ the files in `js_includes` and `css_includes` by editing the variables
 wish to exclude !JavaScript and CSS files which are not used by your experiment
 in order to reduce the size of the file that needs to be downloaded. Since the
 files in both directories are named after the controllers with which they are
-associated, it is easy to see which files are superflous.
+associated, it is easy to see which files are superfluous.
 
 *However:* note that the file `main.css` is required by all
 controllers.
@@ -695,6 +695,6 @@ error message by looking at the !JavaScript console.
 
 Some further cross-browser issues:
 
-   * Pressing '6' and '7' in Opera affects text size; this interacts badly with acceptability judgements on scales including 6 and 7. I have not yet found a way of preventing Opera from interpreting these keypresses.
+   * Pressing '6' and '7' in Opera affects text size; this interacts badly with acceptability judgments on scales including 6 and 7. I have not yet found a way of preventing Opera from interpreting these keypresses.
 
-   * The standalone server serves up the !JavaScript and CSS include files with a `Pragma: nocache` so that any changes you make will be immediately reflected if you refresh `experiment.html`. However, Internet Explorer ignores this pragma (I think this is a bug in IE, but not 100% sure yet), so you will need to delete you temporary internet files and then refresh. This is not such a big issue for live experiments, but it makes developing and testing experiments using IE a big PITA. The obvious workaround is simply not to use IE for these purposes.
+   * The stand-alone server serves up the !JavaScript and CSS include files with a `Pragma: nocache` so that any changes you make will be immediately reflected if you refresh `experiment.html`. However, Internet Explorer ignores this pragma (I think this is a bug in IE, but not 100% sure yet), so you will need to delete you temporary internet files and then refresh. This is not such a big issue for live experiments, but it makes developing and testing experiments using IE a big PITA. The obvious workaround is simply not to use IE for these purposes.
