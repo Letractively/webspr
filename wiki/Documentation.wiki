@@ -72,7 +72,7 @@ environment variable overrides the value of the variable in `server_conf.py`.)
 
 On Linux/Unix/OS X, the server uses file locking to ensure that the results
 file and server state remain consistent. Currently, it does not do so on
-Windows, so there is a theoretical possibility of the state or the results
+Windows, so there is a theoretical possibility of the server state or the results
 being corrupted if you run the server in a Windows environment (but unless you
 have very high traffic, it's purely theoretical).
 
@@ -311,7 +311,7 @@ The following type predicates are predefined as !JavaScript functions:
 || `startsWith(s)`      || Matches any string type starting with s.                ||
 || `endsWith(s)`        || Matches any string type ending with s.                  ||
 || `not(pred)`          || Matches anything that is not of a type matched by pred. ||
-|| `anyOf(p1, p2, ...)` || Matches anything matching one of its arguments.         ||
+|| `anyOf(p1, p2, ...)` || Takes any number of type predicates as its arguments, and matches anything matching one of these predicates. ||
 
 If you define your own predicates, be careful to test that they are
 cross-browser compatible. See section 7 for some pertinent advice.  The
@@ -504,7 +504,7 @@ Note that the second number in the pair must be the same for all items in the gr
 Webspr allows for a limited amount of communication between elements.  Each
 element may set keys in a hashtable which is passed to the next element.  The
 hashtable is cleared between elements, so there is no possibility of
-long-distance communication (unless you just use !JavaScript global variables).
+long-distance communication.
 
 Currently, this system is used to provide feedback to participants when they
 (for example) answer a comprehension question incorrectly.  Controllers such as
@@ -581,7 +581,7 @@ If `mode` is set to "self-paced reading", the results look like this:
 || q              || _obligatory_ || The question to pose.                                             ||
 || as             || _obligatory_ || A list of strings giving the answers the user has to choose from. ||
 || instructions   || `null`       || Instructions for answering the question, displayed following the question and the answer selection. ||
-|| hasCorrect     || `false`      || If `false`, indicates that none of the answers is privileged as correct. Otherwise, is either `true`, indicating that the first answer in the "as" list is the correct one; an integer, giving the index of the correct answer in the "as" list (starting from 0); or a string, giving the correct answer. ||
+|| hasCorrect     || `false`      || If `false`, indicates that none of the answers is privileged as correct. Otherwise, is either `true`, indicating that the first answer in the `as` list is the correct one; an integer, giving the index of the correct answer in the `as` list (starting from 0); or a string, giving the correct answer. ||
 || showNumbers    || `true`       || If `true`, answers are numbered and participants can use number keys to select them. ||
 || randomOrder    || `true` if the question has a correct answer, false otherwise. || Whether or not to randomize the order of the answers before displaying them. ||
 || presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings). If any of the points in the scale are integers 0-9, the participant may select them by pressing a number key. ||
@@ -590,7 +590,7 @@ If `mode` is set to "self-paced reading", the results look like this:
 *Results*
 
 || *Column* || *Description* ||
-|| 1        || The question that was posed (encoded as a URL with %XX escapes). ||
+|| 1        || The question that was posed (encoded as a URL with %XX escapes; commas are escaped). ||
 || 2        || The answer that the participant gave (also encoded as a URL).    ||
 || 3        || "NULL" if the question as no correct answer. Otherwise, 1 if the participant answered correctly, or 0 if they didn't. ||
 
@@ -617,8 +617,8 @@ a controller constructed using a VBox, see
 
 || *Option*  || *Default*    || *Description* ||
 || children  || _obligatory_ || An array of child controllers. Has exactly the same format as an array of elements for an item ||
-|| triggers  || _obligatory_ || In order to determine when a VBox element is complete, you must specify the indices of those of its children which are "triggers" (indices start from 0). When each of the trigger elements is complete, the VBox is complete. ||
-|| padding   || `"2em"`      || The amount of vertical padding to place between the children. ||
+|| triggers  || _obligatory_ || In order to determine when a VBox element is complete, you must give an array of the indices of those of its children which are "triggers" (indices start from 0). When each of the trigger elements is complete, the VBox is complete. ||
+|| padding   || `"2em"`      || The amount of vertical padding to place between the children. This should be a CSS dimension. ||
 
 *Results*
 
@@ -689,7 +689,7 @@ Most browsers allow strings to be indexed using square brackets (i.e. `"foo"``[1
 method.
 
 For debugging, I recommend using Firefox's !JavaScript console. Most syntax
-errors in a data file will result in an alert popping up warning that the
+errors in a data file will result in an alert popping up with a warning that the
 `items` array has not been defined. You can usually get a much more informative
 error message by looking at the !JavaScript console.
 
