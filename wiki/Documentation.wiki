@@ -852,5 +852,5 @@ error message by looking at the !JavaScript console.
 =Changes=
 Changes between 0.2.1 (current version) and 0.2:
 
-* Fix error in documentation for `FlashSentence` controller.
-* Fix bug that caused results to be recorded improperly under some circumstances.
+    * Fix error in documentation for `FlashSentence` controller.
+    * Fix bug that caused results to be recorded improperly under some circumstances.
