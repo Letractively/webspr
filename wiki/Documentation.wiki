@@ -1,9 +1,10 @@
 #labels 0.2-beta8
 =Versions=
-This documentation covers Webspr 0.2. The 0.1.x
+This documentation covers Webspr 0.2.1. The 0.1.x
 versions of Webspr come with a README containing full documentation.  The
 latest version of this document can be found at
-http://code.google.com/p/webspr/wiki/Documentation
+http://code.google.com/p/webspr/wiki/Documentation.
+See the end of this document for the changelog.
 
 =Requirements=
     * Python >= 2.4.
@@ -587,7 +588,8 @@ If `mode` is set to "self-paced reading", the results look like this:
 
 *Results*
 
-`FlashSentence` does not add any lines to the results file.
+|| *Column* || *Description* ||
+|| 1        || MD5 hash of the sentence (with one space between each word -- all additional whitespace is trimmed). ||
 
 ==Question==
 *Options*
@@ -601,7 +603,7 @@ If `mode` is set to "self-paced reading", the results look like this:
 || randomOrder    || `true` if the question has a correct answer, false otherwise. || Whether or not to randomize the order of the answers before displaying them. ||
 || presentAsScale || `false`      || If `true`, answers are presented as a scale (useful for acceptability ratings). If any of the points in the scale are integers 0-9, the participant may select them by pressing a number key. ||
 || leftComment    || `null`       || _Only valid if `presentAsScale` is `true`._ This option specifies text to be displayed at the left edge of a scale (e.g. "Bad"). ||
-|| rightComment   || `null`       || As above, but for the right edge of the scale. ||
+|| rightComment   || `null`       || As for "rightCommnet", but for the right edge of the scale. ||
 || timeout        || `null`       || If `null`, there is no time limit. Otherwise, should be a number giving the time in ms a participant has to answer the question. ||
 
 *Results*
@@ -627,15 +629,19 @@ If `mode` is set to "self-paced reading", the results look like this:
 
 *Results*
 
-Same as for `Question`.
+Each `AcceptabilityJudgment` adds *two* lines to the results file. The first
+line is the same as for the `FlashSentence` controller; the second line is the
+same as for the `Question` controller.
 
 ==VBox==
 The `VBox` controller makes it possible to combine multiple controllers to form
 a single controller. Each controller in the VBox is displayed at the same time,
-one on top of the other. This allows the functionality of simple controllers
-to be reused in the construction of more complex controllers. For an example of
-a controller constructed using a VBox, see
-`js_includes/acceptability_judgment.js`.
+one on top of the other. This allows the functionality of simple controllers to
+be reused in the construction of more complex controllers. For an example of a
+controller constructed using a VBox, see
+`js_includes/acceptability_judgment.js`. For simpler cases, you can just create
+a VBox directly in your data file instead of creating a new controller in the
+`js_includes` directory.
 
 *Options*
 
@@ -649,7 +655,7 @@ a controller constructed using a VBox, see
 The `VBox` controller simply concatenates the results of its children in the order that the children were given.
 
 =Further configuration=
-==Miscalenous options==
+==Miscellaneous  options==
 You can set the values of the following variables in your data file (e.g. `var showProgressBar = true;`).
 
 || *Option* || *Default* || *Description* ||
@@ -842,3 +848,9 @@ For debugging, I recommend using Firefox's !JavaScript console. Most syntax
 errors in a data file will result in an alert popping up with a warning that the
 `items` array has not been defined. You can usually get a much more informative
 error message by looking at the !JavaScript console.
+
+=Changes=
+Changes between 0.2.1 (current version) and 0.2:
+
+* Fix error in documentation for `FlashSentence` controller.
+* Fix bug that caused results to be recorded improperly under some circumstances.
