@@ -161,11 +161,11 @@ makes it quite easy to add new controllers if you are familiar with
 !JavaScript/DHTML programming.
 
 Webspr stores results in CSV format. This makes it easy to import results into
-spreadsheets, Matlab, R, etc. Each entity may contribute zero or more lines to
-the results file. The first seven columns of each line give generic information
-about the result (e.g. the MD5 hash of the subject's IP address) and the rest
-give information specific to the particular element (e.g. word reading times,
-comprehension question answers). The first seven columns are as follows:
+spreadsheets, Matlab, R, etc. Each entity may contribute zero, one *or more*
+lines to the results file. The first seven columns of each line give generic
+information about the result (e.g. the MD5 hash of the subject's IP address) and
+the rest give information specific to the particular element (e.g. word reading
+times, comprehension question answers). The first seven columns are as follows:
 
 || *Column* || *Information*                                                  ||
 || 1        || Time results were received (seconds since Jan 1 1970)          ||
@@ -193,9 +193,14 @@ each sequence of lines in the same format, the server adds comments describing
 the values contained in each column.
 
 *Important*: A single element my contribute multiple lines to the results file.
-For example, if the `DashedSentence` element is in "self-paced reading" mode,
-it will add to the results file for every word reading time it records. Thus,
-there is not a one-to-one correspondence between items/elements and lines.
+For example, if the `DashedSentence` element is in "self-paced reading" mode, it
+will add a line to the results file for every word reading time it
+records. Thus, there is not a one-to-one correspondence between items/elements
+and lines.
+
+*New:* The server now uses a more sophisticted algorithm for commenting lines in
+the results file. It is now able to handle cases where there are repeating
+patterns of lines in a results file.
 
 =Format of a data file=
 Data files for Webspr are !JavaScript source files, but it is not really
@@ -575,9 +580,10 @@ If `mode` is set to "self-paced reading", the results look like this:
 
 || *Column* || *Description* ||
 || 1        || Word number. For example, "1" indicates that this line gives the time it took to read the first word (i.e. the difference between <the time at which the first word appeared> and <the time at which it disappeared and the second word appeared>). ||
-|| 2        || The reading time in ms. ||
-|| 3        || Either 1 or 0. Indicates whether or not there was a line break between word n and word n + 1 (where reading time is for word n). ||
-|| 4        || MD5 hash of the sentence (with one space between each word -- all additional whitespace is trimmed). ||
+|| 2        || The word. ||
+|| 3        || The reading time in ms. ||
+|| 4        || Either 1 or 0. Indicates whether or not there was a line break between word n and word n + 1 (where reading time is for word n). ||
+|| 5        || MD5 hash of the sentence (with one space between each word -- all additional whitespace is trimmed). ||
 
 ==!FlashSentence==
 *Options*
@@ -850,7 +856,12 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
-Changes between 0.2.1 (current version) and 0.2:
+Changes between 0.2.2 and 0.2.1:
+    * Better algorithm for commenting results in results files.
+    * `FlashSentence` controller now adds a line with the MD5 of the sentence to the results file whether or not it finishes. (In practice, this means that sentence MD5s are stored when using the `Question` controller.)
+    * `DashedSentence` controller now stores words as well as word numbers in results file when operating in "self-paced reading" mode.
+
+Changes between 0.2.1 and 0.2:
 
     * Fix error in documentation for `FlashSentence` controller.
     * Fix bug that caused results to be recorded improperly under some circumstances.
