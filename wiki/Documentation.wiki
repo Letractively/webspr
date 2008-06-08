@@ -1,13 +1,13 @@
-#labels 0.2.2
+#labels 0.2.3
 =Versions=
-This documentation covers Webspr 0.2.1. The 0.1.x
+This documentation covers Webspr 0.2.3. The 0.1.x
 versions of Webspr come with a README containing full documentation.  The
 latest version of this document can be found at
 http://code.google.com/p/webspr/wiki/Documentation.
 See the end of this document for the changelog.
 
 =Requirements=
-    * Python >= 2.4.
+    * Python >= 2.3.
     * The `paste` module for Python if you want to run the stand-alone server.
 
 =Introduction=
@@ -30,7 +30,7 @@ experiment at http://localhost:3000/experiment.html).
 *Note:* you will need to
 have the `paste` module installed for Python in order for stand-alone mode to
 work (see http://pythonpaste.org). The CGI mode requires only modules that come
-with the standard Python 2.4/2.5 distribution.
+with the standard Python 2.3/3.4/2.5 distribution.
 
 The stand-alone server is limited to serving files relating to Webspr, so it is
 unlikely to be useful for real work (unless you hide it behind a proxy).
@@ -48,7 +48,7 @@ set the server mode and port respectively. These options override those set in
 `server_conf.py`.
 
 If you are running the server as a CGI application, make sure that the
-webserver you are using can serve up `experiment.html` as a static file. All
+web server you are using can serve up `experiment.html` as a static file. All
 dynamic requests go through `server.py`, so as long as `experiment.html` can be
 accessed, and the server recognizes `server.py` as a CGI application,
 everything should be fine. The "Step-by-step CGI" section below goes through
@@ -158,6 +158,7 @@ experimental task that the entity will present.  For example, there is a
 acceptability judgment tasks.  Webspr has a modular design, where each
 controller is a !JavaScript object that follows a standard interface. This
 makes it quite easy to add new controllers if you are familiar with
+
 !JavaScript/DHTML programming.
 
 Webspr stores results in CSV format. This makes it easy to import results into
@@ -198,7 +199,7 @@ will add a line to the results file for every word reading time it
 records. Thus, there is not a one-to-one correspondence between items/elements
 and lines.
 
-*New:* The server now uses a more sophisticted algorithm for commenting lines in
+*New:* The server now uses a more sophisticated algorithm for commenting lines in
 the results file. It is now able to handle cases where there are repeating
 patterns of lines in a results file.
 
@@ -550,10 +551,14 @@ they answered incorrectly.
 ==Message==
 *Options*
 
-|| *Option*        || *Default*    || *Description*                                                        ||
-|| html            || _obligatory_ || The HTML for the message to display (see section "HTML Code" below). ||
-|| hideProgressBar || `true`       || If true, the progress bar is hidden when the message is displayed.   ||
-|| transfer        || `"keypress"` || Same as for `Separator`.                                             ||
+|| *Option*            || *Default*    || *Description*                                                        ||
+|| html                || _obligatory_ || The HTML for the message to display (see section "HTML Code" below). ||
+|| hideProgressBar     || `true`       || If true, the progress bar is hidden when the message is displayed.   ||
+|| transfer            || `"click"`    || Either `"click"`, `"keypress`" or an integer. If `"click"`, the participant clicks a link at the bottom of the message to continue (see "continueMessage" option). If `"keypress"`, they press any key to continue. If an integer, the experiment continues after pausing for the specified number of milliseconds. ||
+|| requiresConsent     || `false`      || If true, the participant is required to tick a checkbox indicating that they consent to do the experiment (in this case, the message would probably be some sort of statement of terms/conditions). This option can only be set to `true` if the "transfer" option is set go `"click"`. ||
+|| continueMessage     || `"..."`      || Only valid if the "requiresConsent" option is set to `"true"`. This specifies the text that will appear in the link that the participant needs to click to continue with the experiment. ||
+|| consentMessage      || `"..."`      || Only valid if the "requiresConsent" option is set to `"true"`. This specifies the text that will appear next to the checkbox. ||
+|| consentErrorMessage || `"..."`      || Only valid if the "requiresConsent" option is set to `"true"`. This specifies the error message that will be given if the participant attempts to continue without checking the consent checkbox. ||
 
 *Results*
 
@@ -671,7 +676,7 @@ You can set the values of the following variables in your data file (e.g. `var s
 || `completionMessage` || `"..."` || The message shown when the results are successfully sent to the server. ||
 || `completionErrorMessage` || `"..."` || The message shown when there is an error sending the results to the server. ||
 || `practiceItemTypes` || `[]` || A list of types for practice sentences. A sentence whose type is in this list will have a blue "practice" heading above it. ||
-|| `showOverview` || false || See "Overviews section" ||
+|| `showOverview` || false || See "Overviews" section ||
 || `centerItems` || true || Whether or not items should be centered on the page. ||
 
 ==Configuring `js_includes`, `data_includes` and `css_includes`==
@@ -748,7 +753,8 @@ to go to the page `overview.html` instead of `experiment.html`.
 
 =Creating your own controllers=
 This is quite easy if you are familiar with !JavaScript/DHTML.
-As an example, here's the code for the `Message` controller:
+As an example, here's the code for an older (and simpler) version of the
+`Message` controller:
 {{{
 Message.name = "Message";
 Message.obligatory = ["html"];
@@ -859,6 +865,12 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
+Changes between 0.2.3 (current version) and 0.2.2:
+    * Add option to use "click here to continue" as well as "press any key to continue" in `Message` controller.
+    * Add option for consent checkboxes to `Message` controller.
+    * CGI server now works on Python 2.3 (previously required Python2.5, contrary to documentation, which incorrectly stated that it would run on Python >= 2.4).
+    * Improve wording in some parts of this manual.
+
 Changes between 0.2.2 and 0.2.1:
     * Better algorithm for commenting results in results files.
     * `FlashSentence` controller now adds a line with the MD5 of the sentence to the results file whether or not it finishes. (In practice, this means that sentence MD5s are stored when using the `Question` controller.)
