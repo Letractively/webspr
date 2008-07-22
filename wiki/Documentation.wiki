@@ -83,7 +83,7 @@ being corrupted if you run the server in a Windows environment (but unless you
 have very high traffic, it's purely theoretical).
 
 The stand-alone server has been tested on Windows and OS X (but will almost
-certainly work on any system with Python 2.4/2.5, so long as the `paste` module
+certainly work on any system with Python 2.3/2.4/2.5, so long as the `paste` module
 is installed). The CGI server has been tested on OS X and Linux using the
 lighttpd web server in both cases.
 
