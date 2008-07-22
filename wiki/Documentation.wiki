@@ -159,7 +159,6 @@ experimental task that the entity will present.  For example, there is a
 acceptability judgment tasks.  Webspr has a modular design, where each
 controller is a !JavaScript object that follows a standard interface. This
 makes it quite easy to add new controllers if you are familiar with
-
 !JavaScript/DHTML programming.
 
 Webspr stores results in CSV format. This makes it easy to import results into
