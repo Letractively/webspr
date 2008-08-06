@@ -337,8 +337,9 @@ The following type predicates are predefined as !JavaScript functions:
 || `anyOf(p1, p2, ...)` || Takes any number of type predicates as its arguments, and matches anything matching one of these predicates. ||
 
 If you define your own predicates, be careful to test that they are
-cross-browser compatible. See section 7 for some pertinent advice.  The
-predicates above are defined in `shuffle.js`.
+cross-browser compatible. See the "Cross-browser compatibility"
+section below for some pertinent advice.  The predicates above are
+defined in `shuffle.js`.
 
 The power of shuffle sequences derives from the possibility of composing them
 without limit. Suppose we want the following order: all practice items in their
