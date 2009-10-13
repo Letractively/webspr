@@ -1,6 +1,6 @@
-#labels 0.2.5
+#labels 0.2.6
 =Versions=
-This documentation covers Webspr 0.2.5. The 0.1.x
+This documentation covers Webspr 0.2.6. The 0.1.x
 versions of Webspr come with a README containing full documentation.  The
 latest version of this document can be found at
 http://code.google.com/p/webspr/wiki/Documentation.
@@ -605,7 +605,7 @@ If `mode` is set to "self-paced reading", the results look like this:
 || 2        || The word. ||
 || 3        || The reading time in ms. ||
 || 4        || Either 1 or 0. Indicates whether or not there was a line break between word n and word n + 1 (where reading time is for word n). ||
-|| 5        || MD5 hash of the sentence (with one space between each word -- all additional whitespace is trimmed). ||
+|| 5        || See documentation for 'sentenceDescType' option above. ||
 
 ==!FlashSentence==
 *Options*
@@ -618,7 +618,7 @@ If `mode` is set to "self-paced reading", the results look like this:
 *Results*
 
 || *Column* || *Description* ||
-|| 1        || MD5 hash of the sentence (with one space between each word -- all additional whitespace is trimmed). ||
+|| 1        || See documentation for 'sentenceDescType' option of the !DashedSentence controller. ||
 
 ==Question==
 *Options*
@@ -893,7 +893,10 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
-Changes between 0.2.5 (current version) and 0.2.4:
+Changes between 0.2.6 (current version) and 0.2.5:
+    * Fixed bug which caused sentences not be be stored in results file under some circumstances.
+
+Changes between 0.2.5 and 0.2.4:
     * Option to store whole sentences in results file for !DashedSentence and !FlashSentence controllers instead of MD5 hashes (this is now the default).
     * Latin square can now be selected in the URL (".../server.py?withsquare=XXXX"); this sets the counter to XXXX and then redirects to ".../experiment.html". Selecting latin squares in this way does not alter the master counter stored on the server.
 
