@@ -1,6 +1,6 @@
-#labels 0.2.6
+#labels 0.2.7
 =Versions=
-This documentation covers Webspr 0.2.6. The 0.1.x
+This documentation covers Webspr 0.2.7. The 0.1.x
 versions of Webspr come with a README containing full documentation.  The
 latest version of this document can be found at
 http://code.google.com/p/webspr/wiki/Documentation.
@@ -588,7 +588,7 @@ they answered incorrectly.
 || mode          || `"self-paced reading"` || Either `"self-paced reading"` or `"speeded acceptability"`. ||
 || wordTime      || `300`                  || If mode is `"speeded acceptability"`, the time in ms each word should be displayed for. ||
 || wordPauseTime || `100`                  || If mode is `"speeded acceptability"`, the time in ms a word should remain blank before it is shown. ||
-|| sentenceDescType || `"literal"`         || Determines the format of column 1 of the results (see table below). If `"md5"`, column contains hex digest of md5 hash of sentence. If `"literal"`, column contains the sentence itself (with ',' replaced by '\,', newlines replaced by '\n', and '\' replaced by '\\'). Earlier versions of webspr did not have this option and always stored md5 hashes. *Important:* The use of md5 hashes is not recommeded if you are using non-ASCII strings, since different browsers give inconsistent md5 hashes in this case! ||
+|| sentenceDescType || `"literal"`         || Determines the format of column 1 of the results (see table below). If `"md5"`, column contains hex digest of md5 hash of sentence. If `"literal"`, column contains the sentence itself (encoded as a URL with %XX escapes). Earlier versions of webspr did not have this option and always stored md5 hashes. *Important:* The use of md5 hashes is not recommeded if you are using non-ASCII strings, since different browsers give inconsistent md5 hashes in this case! ||
 
 *Results*
 
@@ -638,7 +638,7 @@ If `mode` is set to "self-paced reading", the results look like this:
 *Results*
 
 || *Column* || *Description* ||
-|| 1        || The question that was posed (encoded as a URL with %XX escapes; commas are escaped). ||
+|| 1        || The question that was posed (encoded as a URL with %XX escapes). ||
 || 2        || The answer that the participant gave (also encoded as a URL).    ||
 || 3        || "NULL" if the question as no correct answer. Otherwise, 1 if the participant answered correctly, or 0 if they didn't. ||
 || 4        || The time the participant took to answer the question (ms). ||
@@ -850,11 +850,11 @@ I have tested compatibility with the following browsers:
 
 Known cross-browser issues:
 
-   * Overviews (see previous section) currently do not work on Internet Explorer.
+   * Overviews (see previous section) currently do not work on all versions of Internet Explorer.
 
    * Pressing '6' and '7' in Opera affects text size; this interacts badly with acceptability judgments on scales including 6 and 7. I have not yet found a way of preventing Opera from interpreting these keypresses.
 
-   * The stand-alone server serves up the !JavaScript and CSS include files with a `Pragma: nocache` so that any changes you make will be immediately reflected if you refresh `experiment.html`. However, Internet Explorer ignores this pragma (I think this is a bug in IE, but not 100% sure yet), so you will need to delete your temporary internet files and then refresh. This is not such a big issue for live experiments, but it makes developing and testing experiments using IE a big PITA. The obvious workaround is simply not to use IE for these purposes.
+   * The stand-alone server serves up the !JavaScript and CSS include files with a `Pragma: nocache` so that any changes you make will be immediately reflected if you refresh `experiment.html`. However, some versions of Internet Explorer ignore this pragma (I think this is a bug in IE, but not 100% sure yet), so you will need to delete your temporary internet files and then refresh. This is not such a big issue for live experiments, but it makes developing and testing experiments using IE a big PITA. The obvious workaround is simply not to use IE for these purposes.
 
 =Terminological clarifications=
 Unfortunately, the terms I've used relating to the design of experiments (latin squares, etc.) are enormously confusing as they use some non-standard terms, and make non-standard use of some standard terms. Specifically:
@@ -893,7 +893,14 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
-Changes between 0.2.6 (current version) and 0.2.5:
+Changes betwen 0.2.7 (current version) and 0.2.6:
+    * Server now attempts to do the Right Thing with unicode. Earlier versions would occasionally fail to work when the server was running on Windows due to crufty unicode issues. This should now be fixed.
+    * FlashSentence, DashedSentence and Question now consistently store questions/sentences in the results file in URL-encoded format.
+    * Cleaned up example data file a little.
+    * Fixed bug where numbers for numbered answers to comprehension questions were not displayed in IE <= 6.
+    * Minor CSS fixes.
+
+Changes between 0.2.6 and 0.2.5:
     * Fixed bug which caused sentences not be be stored in results file under some circumstances.
 
 Changes between 0.2.5 and 0.2.4:
