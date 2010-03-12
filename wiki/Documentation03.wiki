@@ -1,6 +1,6 @@
-#labels 0.3-beta1
+#labels 0.3-beta3
 =Versions=
-This documentation covers 0.3-beta2. The 0.1.x
+This documentation covers 0.3-beta3. The 0.1.x
 versions of Webspr come with a README containing full documentation.
 0.2.x versions are documented in another page on the wiki.
 The
@@ -9,7 +9,7 @@ http://code.google.com/p/webspr/wiki/Documentation03
 
 See the end of this document for the changelog.
 
-Note that prior to version 0.3 this software was called "webspr",
+Prior to version 0.3 this software was called "webspr",
 not "Ibex".
 
 =Requirements=
@@ -723,12 +723,56 @@ a VBox directly in your data file instead of creating a new controller in the
 
 The `VBox` controller simply concatenates the results of its children in the order that the children were given.
 
+==Form==
+The `Form` controller collects data from an HTML form presented to the participant.
+The form may contain any combination of text boxes (`<input type="text">`), text areas (`<textarea>`),
+checkboxes (`<input type="checkbox">`) or radio buttons (`<input type="radio">`).
+It isn't necessary to wrap the `<input>` tags within a `<form>` tag; nor should
+you include a submit button.
+
+You can indicate that a text area or radio button group is obligatory by adding
+the "obligatory" class to it (e.g. `<input type="text" class="obligatory">`).
+For groups of radio buttons, you need only add the "obligatory" class
+to one button in the group. (As usual, radio buttons in a single group should
+all have the same 'name' attribute.)
+
+By default, failure to fill in an obligatory field is signaled by an alert dialog.
+However, you can indicate that the error message is to be displayed on the page
+by inserting an empty label tag in your form of the following sort:
+{{{
+<label class="error" for="FIELD_NAME"></label>
+}}}
+If you want all error messages to
+be displayed in the same location, add a `<label>` with 'for' set to "__ALL_FIELDS__".
+
+*Options*
+
+|| *Option* || *Default* || *Description* ||
+|| html || _obligatory_ || As for the `Message` controller. ||
+|| continueMessage ||  "Click here to continue" || ||
+|| checkedValue || `"yes"` || The value stored in the results file when a checkbox is checked. ||
+|| uncheckedValue || `"no"` || The value stored in the results file when a checkbox is unchecked. ||
+|| validators || `{ }` || A !JavaScript dictionary mapping field names to validating functions. Functions take the field value as their sole argument, and return `true` if the value is valid or an error string otherwise. ||
+|| errorCSSClass || error || The CSS class used to indicate that a `<label>` tag is a placeholder for error messages. ||
+|| obligatoryErrorGenerator || `...` || A function from field names to error messages (used when an obligatory text box or text area is not filled in). ||
+|| obligatoryRadioErrorGenerator || `...` || As above but for radio button groups. ||
+
+*Results*
+
+For each `<input>` or `<textarea>` tag, there is a line in the results file with the
+following two columns:
+
+|| *Column* || *Description* ||
+|| 1        || The name of the field (taken from the 'name' attribute of the `<input>` or `<textarea>`). ||
+|| 2        || The answer given by the participant. ||
+
 =Further configuration=
 ==Miscellaneous  options==
 You can set the values of the following variables in your data file (e.g. `var showProgressBar = true;`).
 
 || *Option* || *Default* || *Description* ||
 || `showProgressBar` || `true` || Whether or not to show a progress bar. ||
+|| `progressBarText` || `progress` || The text that appears below the progress bar. ||
 || `pageTitle` || `"experiment"` || Page title. ||
 || `sendingResultsMessage` || `"..."` || The message shown while results are being sent to the server. ||
 || `completionMessage` || `"..."` || The message shown when the results are successfully sent to the server. ||
@@ -764,9 +808,14 @@ associated, it is easy to see which files are superfluous.
 controllers.
 
 =HTML Code=
-Ibex provides two ways of passing HTML code to the `Message` controller
-(currently the only controller which has an `html` option). The first is simply
-to pass a !JavaScript string containing the HTML code. The second is to pass a
+Ibex provides three methods of passing HTML code to the `Message` and `Form` controllers
+(currently the only controllers which have an `html` option).
+
+==Method 1: HTML in a !JavaScript String==
+Pass a !JavaScript string containing the HTML code.
+
+==Method 2: HTML as a !JavaScript data structre==
+Pass a
 !JavaScript data structure representing the HTML Code. For example, here is
 the representation of a `div` element containing two paragraphs:
 {{{
@@ -803,12 +852,14 @@ following example:
 }}}
 Spaces are _not_ automatically inserted before and after elements.
 
-=Overviews=
-Sometimes it's useful to get an overview of the sequence of items in an
-experiment without actually running through each item. There are two ways of
-getting webspr to display an overview of this sort. The first is to add the
-statement `var showOverview = true;` to your data file.  The second is
-to go to the page `overview.html` instead of `experiment.html`.
+==Method 3: HTML in a separate file==
+(New in 0.3-beta3.)
+
+Place the HTML in a file in the `chunk_includes` dir.
+Files in this directory can be included as follows:
+{{{
+{ html: { include: "file_name.html" } }
+}}}
 
 =Creating your own controllers=
 This is quite easy if you are familiar with !JavaScript/DHTML
@@ -868,7 +919,7 @@ the size of the progress bar. The `htmlDescription` function should return
 either HTML or a DOM node which gives a brief summary of the content of
 an instance of the controller for use in overviews.
 
-The `options` for the widget have three special values set:
+The `options` dictionary for the widget has three special values set:
     * A function (`_finishedCallback`) which should be called with lines to be added to the results file when the controller is complete.
     * A `_utils` object which contains some useful functions.
     * A `_cssPrefix` string, which gives the controller its designated CSS prefix for all CSS class names/ids which it adds to DOM nodes (see section below, "CSS mangling").
@@ -893,13 +944,22 @@ Similarly, a `safeBind` method has been added to jQuery, which ensures that even
 are automatically unregistered once a controller instance is finished.
 
 ==CSS mangling==
-(New in version 0.3) Every class/id name in a CSS file in the `css_includes` directory is prepended
-with the string 'FILENAME-'. The CSS for each controller should live in `CONTROLLER_NAME.css`;
-this ensures that there are no namespace
+(New in version 0.3.)
+
+Every class/id name in a CSS file in the `css_includes` directory is prepended
+with the string 'FILENAME-'. The CSS for each controller should live in `CONTROLLER_NAME.css`.
+This ensures that there are no namespace
 clashes between controllers. Note that if you wish to prevent automatic CSS mangling (e.g. because
 of a bug in the mangling code that you need to work around),
-you may prefix your CSS file name with `"global_"`; this causes the file to
+you may prefix your CSS file name with `"global_"`. This causes the file to
 be served as-is.
+
+=Overviews=
+Sometimes it's useful to get an overview of the sequence of items in an
+experiment without actually running through each item. There are two ways of
+getting webspr to display an overview of this sort. The first is to add the
+statement `var showOverview = true;` to your data file.  The second is
+to go to the page `overview.html` instead of `experiment.html`.
 
 =Cross-browser compatibility=
 I have tested compatibility with the following browsers:
@@ -955,7 +1015,14 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
-Changes between 0.3-beta1 (current version) and 0.2.7:
+Changes between 0.3-beta3 (current version) and 0.3-beta2:
+    * `Form` controller added for collecting data from participants.
+    * New method of passing HTML to the `Message` and `Form` controllers (HTML files can be included from `chunk_includes` dir).
+
+Changes between 0.3-beta2 and 0.3-beta1:
+    * Bug fixes.
+
+Changes between 0.3-beta1 and 0.2.7:
     * Name changed to "Ibex" (Internet Based EXperiments).
     * Removed dependence on `paste` module for stand-alone server. The server now requires only modules that are bundled with Python >= 2.3.
     * !JavaScript code now uses jQuery 1.4. Controllers are jQuery.ui widgets.
