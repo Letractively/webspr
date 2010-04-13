@@ -1,4 +1,4 @@
-The source is in a [http://git.or.cz/ git] repository, you can check out the latest version using the following command:
+The source is in a [http://github.com/addrummond/ibex/ git repository], you can check out the latest version using the following command:
 {{{
 git clone git://github.com/addrummond/ibex.git
 }}}
