@@ -143,7 +143,7 @@ files/directories; the setup described below is just the simplest.
 
     # If the version of Python you wish to use is not the default used by the HTTP server, add a `#!` line at the beginning of `server.py`.
 
-    # You may need to rename `server.py` (e.g. some servers may only execute CGI scripts with the extension `.cgi`. If this is the case, follow the instructions in the subsection below.
+    # You may need to rename `server.py` (e.g. some servers may only execute CGI scripts with the extension `.cgi`). If this is the case, follow the instructions in the subsection below.
 
 Once these steps are complete, it's just a matter of configuring your HTTP
 server correctly. If you are using shared hosting, there is a reasonably good
@@ -625,7 +625,7 @@ the controller adds lines to the results file, then the "item",
 "element", "type" and "group" columns will all have the value
 "DYNAMIC".
 
-The convenince constructor `DynamicItem` is provided to ease the construction
+The convenince constructor `DynamicElement` is provided to ease the construction
 of typical element objects. This takes as its first argument a controller name,
 and as its second the controller's options. Optionally, `true` may be passed as the
 third argument to set the `hideResults` property to `true`.
