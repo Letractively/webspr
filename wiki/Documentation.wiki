@@ -1,5 +1,5 @@
 #labels 0.2.7
-*NOTE: This is the documentation for an old version of webspr/ibex. The documentation for the 0.3 betas is at [Documentation03].*
+=NOTE: This is the documentation for an old version of webspr/ibex. The documentation for the 0.3 betas is at [Documentation03].=
 
 =Versions=
 This documentation covers Webspr 0.2.7. The 0.1.x
