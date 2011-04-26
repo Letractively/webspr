@@ -2,7 +2,7 @@
 _*Check out the printable PDF version of this manual:*_ http://spellout.net/latest_ibex_manual.pdf           
 
 =Versions=
-This documentation covers 0.3-beta14. The 0.1.x
+This documentation covers 0.3-beta15. The 0.1.x
 versions of Webspr come with a README containing full documentation.
 0.2.x versions are documented in another page on the wiki.
 The latest version of this document can be found at
@@ -246,6 +246,16 @@ and lines.
 *New:* The server now uses a more sophisticated algorithm for commenting lines in
 the results file. It is now able to handle cases where there are repeating
 patterns of lines in a results file.
+
+*Newer:* As of 0.3-beta15, there is another commenting algorithm
+available, which can be turned on by setting the
+`SIMPLE_RESULTS_FILE_COMMENTS` variable to `True` in `server_conf.py`
+(it defaults to `False`). This algorithm simply adds a comment for
+every line in the results file. This simpler method generally works
+better than the old algorithm, which tried to be clever but didn't
+really succeed. If you are using the Ibex Farm, there is currently
+no way of changing this configuration option using the web interface,
+but this should be fixed soon.
 
 =Format of a data file=
 Data files for Ibex are !JavaScript source files, but it is not really
@@ -685,7 +695,7 @@ progress bar to move to the right. (Different controllers have a different defau
 
 || *Option*            || *Default*    || *Description*                                                        ||
 || html                || _obligatory_ || The HTML for the message to display (see section "HTML Code" below). ||
-|| transfer            || `"click"`    || Either `"click"`, `"keypress`" or an integer. If `"click"`, the participant clicks a link at the bottom of the message to continue (see "continueMessage" option). If `"keypress"`, they press any key to continue. If an integer, the experiment continues after pausing for the specified number of milliseconds. ||
+|| transfer            || `"click"`    || Either `"click"`, `"keypress`", an integer, or `null`. If `"click"`, the participant clicks a link at the bottom of the message to continue (see "continueMessage" option). If `"keypress"`, they press any key to continue. If an integer, the experiment continues after pausing for the specified number of milliseconds. If `null`, there is no way for the user to complete the controller (and no "click to continue" message is displayed). This is useful only when the controller is part of a larger `VBox`. ||
 || requiresConsent     || `false`      || If true, the participant is required to tick a checkbox indicating that they consent to do the experiment (in this case, the message would probably be some sort of statement of terms/conditions). This option can only be set to `true` if the "transfer" option is set go `"click"`. Note that it is also possible to create checkboxes like this using the more flexible `Form` controller. ||
 || continueMessage     || `"..."`      || Only valid if the "requiresConsent" option is set to `"true"`. This specifies the text that will appear in the link that the participant needs to click to continue with the experiment. ||
 || consentMessage      || `"..."`      || Only valid if the "requiresConsent" option is set to `"true"`. This specifies the text that will appear next to the checkbox. ||
@@ -770,11 +780,16 @@ If `mode` is set to "self-paced reading", the results look like this:
 || 4        || The time the participant took to answer the question (ms). ||
 
 ==!AcceptabilityJudgment==
+The `AcceptabilityJudgment` controller makes it straightforward to present a sentence together
+with a rating scale. It is a combination of the `FlashSentence` and `Message` controllers.
+
 || *Option*       || *Default*           || *Description*                ||
 || s              || _obligatory_        || The sentence.                ||
 || q              || _obligatory_        || The question.                ||
 || as             || _obligatory_        || Answers (as for `Question`). ||
+|| instructions   || `null`              || As for `Question`            ||
 || hasCorrect     || `false`             || As for `Question`            ||
+|| autoFirstChar  || `false`             || As for `Question`            ||
 || showNumbers    || `true`              || As for `Question`            ||
 || randomOrder    || _as for `Question`_ || As for `Question`            ||
 || presentAsScale || `false`             || As for `Question`            ||
@@ -788,15 +803,75 @@ Each `AcceptabilityJudgment` adds *two* lines to the results file. The first
 line is the same as for the `FlashSentence` controller; the second line is the
 same as for the `Question` controller.
 
+==!DashedAcceptabilityJudgment==
+This is like `AcceptabilityJudgment`, but it uses `DashedSentence`
+instead of `FlashSentence`.  This is useful for running speeded
+acceptability judgment tasks (which otherwise require some rather
+creative use of shuffle sequences).
+
+|| *Option*         || *Default*                 || *Description*                                        ||
+|| s                || _obligatory_              || The sentence.                                        ||
+|| q                || _obligatory_              || The question.                                        ||
+|| as               || _obligatory_              || Answers (as for `Question`).                         ||
+|| instructions     || `null`                    || As for `Question`                                    ||
+|| hasCorrect       || `false`                   || As for `Question`                                    ||
+|| autoFirstChar    || `false`                   || As for `Question`                                    ||
+|| showNumbers      || `true`                    || As for `Question`                                    ||
+|| randomOrder      || _as for `Question`_       || As for `Question`                                    ||
+|| presentAsScale   || `false`                   || As for `Question`                                    ||
+|| leftComment      || `null`                    || As for `Question`                                    ||
+|| rightComment     || `null`                    || As for `Question`                                    ||
+|| timeout          || `null`                    || As for `Question`                                    ||
+|| mode             || `"speeded acceptability"` || As for `DashedSentence` (but with different default) ||
+|| display          || `"dashed"`                || As for `DashedSentence`                              ||
+|| blankText        || `"\u2014\u2014"`          || As for `DahsedSentence`                              ||
+|| wordTime         || `300`                     || As for `DashedSentence`                              ||
+|| wordPauseTime    || `100`                     || As for `DashedSentence`                              ||
+|| sentenceDescType || `"literal"`               || As for `DashedSentence`                              ||
+|| showAhead        || `true`                    || As for `DashedSentence`                              ||
+|| showBehind       || `true`                    || As for `DashedSentence`                              ||
+
+*Results*
+
+Each `DashedAcceptabilityJudgment` adds *two* lines to the results
+file if the "mode" option is set to "speeded acceptability". If it is
+set to "self-paced reading", the number of lines is 1 + the number of
+words in the sentence.  The first line(s) are the same as for the
+`DashedSentence` controller; the last line is the same as for the
+`Question` controller.
+
 ==VBox==
 The `VBox` controller makes it possible to combine multiple controllers to form
 a single controller. Each controller in the VBox is displayed at the same time,
 one on top of the other. This allows the functionality of simple controllers to
 be reused in the construction of more complex controllers. For an example of a
 controller constructed using a VBox, see
-`js_includes/acceptability_judgment.js`. For simpler cases, you can just create
-a VBox directly in your data file instead of creating a new controller in the
-`js_includes` directory.
+`js_includes/acceptability_judgment.js`.
+
+Currently, you canno create VBox controllers inline in your data file. Instead,
+you must create a new controller which passes its `options` dictionary to the VBox.
+E.g., by placing something like the following at the beginning of your data file:
+{{{
+define_ibex_controller({
+    name: "MyController",
+
+    jqueryWidget: {
+        _init: function () {
+            this.options.transfer = null; // Remove 'click to continue message'.         
+            this.element.VBox({
+                options: this.options,
+                triggers: [1],
+                children: [
+                    "Message", this.options,
+                    "AcceptabilityJudgment", this.options,
+                ]
+            });
+        }
+    },
+
+    properties: { }
+});
+}}}
 
 *Options*
 
@@ -804,6 +879,7 @@ a VBox directly in your data file instead of creating a new controller in the
 || children  || _obligatory_ || An array of child controllers. Has exactly the same format as an array of elements for an item ||
 || triggers  || _obligatory_ || In order to determine when a VBox element is complete, you must give an array of the indices of those of its children which are "triggers" (indices start from 0). When each of the trigger elements is complete, the VBox is complete. ||
 || padding   || `"2em"`      || The amount of vertical padding to place between the children. This should be a CSS dimension. ||
+|| _vboxCallbackWhenChildFinishes || `null` || If set, this function is called every time one of the VBox's children finishes. It is called with two paramaters: the index of the child, and an array of arrays (= array of lines) giving the results for that child. ||
 
 *Results*
 
@@ -815,9 +891,6 @@ The form may contain any combination of text boxes (`<input type="text">`), text
 checkboxes (`<input type="checkbox">`) or radio buttons (`<input type="radio">`).
 It isn't necessary to wrap the `<input>` tags within a `<form>` tag; nor should
 you include a submit button.
-
-The `Form` controller essentially serves as a more flexible version of the `Message` controller.
-Anything that can be done with `Message` can also be done with `Form`.
 
 You can indicate that a text area or radio button group is obligatory by adding
 the "obligatory" class to it (e.g. `<input type="text" class="obligatory">`).
@@ -842,7 +915,7 @@ be displayed in the same location, add a `<label>` with 'for' set to "__ALL_FIEL
 || *Option* || *Default* || *Description* ||
 || html || _obligatory_ || As for the `Message` controller. ||
 || continueOnReturn || `false` || If `true`, the user can complete the form by pressing the return key when a single-line text field is focused. ||
-|| continueMessage ||  "Click here to continue" || ||
+|| continueMessage ||  "Click here to continue" || If set to `null`, no continue message is displayed. ||
 || checkedValue || `"yes"` || The value stored in the results file when a checkbox is checked. ||
 || uncheckedValue || `"no"` || The value stored in the results file when a checkbox is unchecked. ||
 || validators || `{ }` || A !JavaScript dictionary mapping field names to validating functions. Functions take the field value as their sole argument, and return `true` if the value is valid or an error string otherwise. ||
@@ -961,7 +1034,11 @@ from webspr 0.2 is that controllers are now JQuery.ui widgets.)
 As an example, here's the code for a simplified version of the
 `Message` controller:
 {{{
-    $.widget("ui.Message", {
+define_ibex_controller({
+name: "Message",
+
+jqueryWidget: {
+    _init: function() {
         // Boilerplate code that appears in all controllers.
         this.cssPrefix = this.options._cssPrefix;
         this.utils = this.options._utils;
@@ -973,8 +1050,7 @@ As an example, here's the code for a simplified version of the
 
         this.transfer = dget(this.options, "transfer", "keypress");
         assert(this.transfer == "keypress" || typeof(this.transfer) == "number",
-               "Value of 'transfer' option of Message must either be " +
-               "the string 'keypress' or a number");
+               "Value of 'transfer' option of Message must either be the string 'keypress' or a number");
 
         if (this.transfer == "keypress") {
             var t = this;
@@ -989,15 +1065,17 @@ As an example, here's the code for a simplified version of the
             this.utils.setTimeout(this.finishedCallback, this.transfer);
         }
     }
+},
 
-    ibex_controller_set_properties("Message", {
-        obligatory: ["html"],
-        countsForProgressBar: false,
-        htmlDescription: function (opts) {
-            var d = htmlCodeToDOM(opts.html);
-            return truncateHTML(d, 100);
-        }
-    });
+properties: {
+    obligatory: ["html"],
+    countsForProgressBar: false,
+    htmlDescription: function (opts) {
+        var d = htmlCodeToDOM(opts.html);
+        return truncateHTML(d, 100);
+    }
+}
+});
 }}}
 The call to `ibex_controller_set_properties` sets some properties of the `Message` controller.
 The `obligatory` option specifies those options which must obligatorily be
@@ -1094,7 +1172,14 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
-Changes between 0.3-beta14 (current version) and 0.3-beta13:
+Changes between 0.3-beta15 (current version) and 0.3-beta14:
+    * Added the `DashedAcceptabilityJudgment` controller for easy speeded acceptability judgments.
+    * Cleaned up the way controllers are defined (not a user-visible change).
+    * Fixed a bug in the file-locking code in `server.py`.
+    * Fixed a bug with result concatenation in the `VBox` controller which surface on Chrome/Safari.
+    * Make it possible to create `Form` and `Message` controllers which can't be completed (useful in VBoxes).
+
+Changes between 0.3-beta14 and 0.3-beta13:
     * It is now possible to set the `countsForProgressBar` option at the level of individual items.
     * Add 'continueOnReturn' option to the `Form` controller.
     * Add the option to display all words at the center of the screen with the `DashedSentence` controller.
