@@ -2,7 +2,7 @@
 _*Check out the printable PDF version of this manual:*_ http://spellout.net/latest_ibex_manual.pdf           
 
 =Versions=
-This documentation covers 0.3.2. The 0.1.x
+This documentation covers 0.3.6. The 0.1.x
 versions of Webspr come with a README containing full documentation.
 0.2.x versions are documented in another page on the wiki.
 The latest version of this document can be found at
@@ -718,6 +718,7 @@ progress bar to move to the right. (Different controllers have a different defau
 || sentenceDescType || `"literal"`         || Determines the format of column 1 of the results (see table below). If `"md5"`, column contains hex digest of md5 hash of sentence. If `"literal"`, column contains the sentence itself (encoded as a URL with %XX escapes). Earlier versions of webspr did not have this option and always stored md5 hashes. *Important:* The use of md5 hashes is not recommeded if you are using non-ASCII strings, since different browsers give inconsistent md5 hashes in this case! ||
 || showAhead     || `true`                 || Whether or not to use dashes to indicate the presence of words ahead of the reader's current position. ||
 || showBehind    || `true`                 || As above (but behind rather than ahead). If both showAhead and showBehind are set to `false`, no dashes are shown. ||
+|| hideUnderscores || `false`              || If this is set to `true`, the underscore character is interpreted as a space which does not trigger a break between words. This is an alternative to passing an array of strings as the value of the `s` option. ||
 
 *Note on right-to-left languages:* The current version of Ibex doesn't provide out-of-the-box support
 for doing self-paced reading experiments with languages that are displayed right to left (although
@@ -1174,7 +1175,23 @@ errors in a data file will result in an alert popping up with a warning that the
 error message by looking at the !JavaScript console.
 
 =Changes=
-Changes between 0.3.2 (current version) and 0.3.1:
+Changes between 0.3.6 (current version) and 0.3.5:
+    * Improve loading of files in chunk_includes. Chunks are now preloaded so that experiments will not be disrupted.
+
+Changes between 0.3.5 and 0.3.4:
+    * Fix a bug in the recording of answers for certain options of the `Question` controller (thanks to Michael Yoshitaka Erlewine).
+    * Fix a bug in VBox which caused errors to appear on the console in some cases (thanks to Alexandre Cremers).
+
+Changes between 0.3.4 (current version) and 0.3.3:
+    * Fix a bug which caused commas to be unescaped in 'Form' controller results.
+    * Fix a minor bug in server.py (most likely did not have any user-visible effects).
+
+Changes between 0.3.3 and 0.3.2:
+    * Improve recording of HTML sentences in results file with `AcceptabilityJudgment` and `FlashSentence`.
+    * Fix a venerable bug in server.py which caused files to be served with a leading blank line with the toy server.
+    * Remove 'md5' option for 'sentenceDescType'.
+
+Changes between 0.3.2 and 0.3.1:
     * Corrected error in docs ("requiresConsent" to "consentRequired").
     * Made it possible to use HTML with `FlashSentence` controller (and hence also with `AcceptabilityJudgment`). Currently undocumented; see Google group discussion.
 
